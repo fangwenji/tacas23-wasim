@@ -1,0 +1,1 @@
+python run_all_inst.py -s inv_check_c2_prop.py -l ../log/log_proof/log_c2

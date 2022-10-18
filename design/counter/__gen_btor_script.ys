@@ -1,0 +1,7 @@
+read_verilog -sv counter.v
+prep -top counter
+
+hierarchy -check
+setundef -undriven -init -expose
+sim -clock clk -reset rst -rstlen 1 -n 1 -w counter
+write_btor  -s counter.btor2

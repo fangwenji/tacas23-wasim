@@ -1,0 +1,583 @@
+Warning: will not rename state: stage3  to output name:  out
+Warning: ignore output:  out
+Unlinked nodes "39,40,43,44,46,47,48,clk,w"
+<class 'pysmt.fnode.FNode'>
+<class 'pysmt.fnode.FNode'>
+<class 'pysmt.fnode.FNode'>
+|      sv  | rhs
+|----------|---------------------
+|wen_stage1| v1
+|wen_stage2| v2
+|    stage1| a
+|    stage2| b
+|    stage3| c
+A0 :init
+A0 :((tag31 = 0_1) & (tag01 = 1_1) & (tag11 = 0_1) & (tag21 = 0_1))
+A1 :ts.asmpt @ 0
+A1 :(((! tag21) | (reg_v1 bvcomp c)) = 1_1)
+A2 :((((stall1in = 1_1) ? 0_1 : ((... = ...) ? (... ? ... : ...) : 1_1)) ZEXT 0) = 0_1)@0
+A2 :((((stall1inX1 = 1_1) ? 0_1 : ((v1 = 1_1) ? ((stall2inX1 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX1) : 1_1)) : 1_1)) ZEXT 0) = 0_1)
+frozenset({wen_stage2, v1, wen_stage1, v2, a, b, c, stage3, stage2, stage1})
+<class 'frozenset'>
+<class 'pysmt.fnode.FNode'>
+<class 'pysmt.fnode.FNode'>
+v1
+v2
+inv-check !!!
+
+
+inv_check: False
+counter example (inv check)
+ a := 8_4
+a_next := 8_4
+b := 0_4
+b_next := 0_4
+c := 8_4
+c_next := 8_4
+reg_init := 8_4
+reg_v := 0_4
+reg_v_comp_prime := 1_4
+reg_v_prime := 0_4
+rst := 0_1
+rst_prime := 0_1
+stage1 := 8_4
+stage1_prime := 8_4
+stage2 := 1_4
+stage2_prime := 1_4
+stage3 := 8_4
+stage3_prime := 8_4
+stall1in := 0_1
+stall2in := 0_1
+stall3in := 1_1
+tag0 := 1_1
+tag0_prime := 0_1
+tag1 := 0_1
+tag1_prime := 1_1
+tag2 := 0_1
+tag2_prime := 0_1
+tag3 := 0_1
+tag3_prime := 0_1
+v1 := 0_1
+v1_next := 0_1
+v2 := 0_1
+v2_next := 0_1
+wen_stage1 := 0_1
+wen_stage1_prime := 1_1
+wen_stage2 := 0_1
+wen_stage2_prime := 0_1
+[(v1 = 0_1), (v2 = 0_1)]
+tag0: 1
+
+
+begin to update inv!
+(v1 = 0_1)
+(((v1 & ((stall2inX84 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX84) : 1_1))) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v1 = 1_1)
+
+
+
+
+inv_check: False
+counter example (inv check)
+ a := 0_4
+a_next := 0_4
+b := 0_4
+b_next := 0_4
+c := 0_4
+c_next := 0_4
+reg_init := 0_4
+reg_v := 8_4
+reg_v_comp_prime := 1_4
+reg_v_prime := 8_4
+rst := 0_1
+rst_prime := 0_1
+stage1 := 0_4
+stage1_prime := 0_4
+stage2 := 1_4
+stage2_prime := 1_4
+stage3 := 0_4
+stage3_prime := 0_4
+stall1in := 0_1
+stall2in := 1_1
+stall3in := 0_1
+tag0 := 1_1
+tag0_prime := 0_1
+tag1 := 0_1
+tag1_prime := 1_1
+tag2 := 0_1
+tag2_prime := 0_1
+tag3 := 0_1
+tag3_prime := 0_1
+v1 := 0_1
+v1_next := 0_1
+v2 := 0_1
+v2_next := 0_1
+wen_stage1 := 0_1
+wen_stage1_prime := 1_1
+wen_stage2 := 0_1
+wen_stage2_prime := 0_1
+[(v1 = 0_1), (v2 = 0_1)]
+tag0: 1
+
+
+begin to update inv!
+len of inv_true > 1
+
+
+((tag0 = 1_1) -> (((((wen_stage1 = v1) & (wen_stage2 = v2)) & (stage1 = a)) & (stage2 = b)) & (stage3 = c)))
+--------->  False
+((tag0 = 1_1) -> (((((stage3 = b) & (stage1 = a)) & (wen_stage2 = 0_1)) & (wen_stage1 = v1)) & (stage2 = b)))
+--------->  False
+((tag0 = 1_1) -> (((((stage3 = b) & (stage1 = a)) & (wen_stage2 = v1)) & (wen_stage1 = 0_1)) & (stage2 = ((a * 2_4) + 1_4))))
+--------->  True
+((tag0 = 1_1) -> (((((stage3 = ((v1 = 1_1) ? ((a + a) + 1_4) : b)) & (stage1 = a)) & (wen_stage2 = 0_1)) & (wen_stage1 = 0_1)) & (stage2 = ((a * 2_4) + 1_4))))
+--------->  True
+((tag0 = 1_1) -> ((((((stage3 = ((0_1 u< v2) ? ((v2 = 1_1) ? b : c) : c)) & (stage1 = a)) & (wen_stage2 = v1)) & (wen_stage1 = 0_1)) & (stage2 = ((a * 2_4) + 1_4))) & (v1 = 1_1)))
+--------->  False
+((tag0 = 1_1) -> (((((stage3 = ((v1 = 1_1) ? ((a * 2_4) + 1_4) : b)) & (stage1 = a)) & (wen_stage2 = 0_1)) & (wen_stage1 = 0_1)) & (stage2 = ((a * 2_4) + 1_4))))
+--------->  True
+(v2 = 0_1)
+((((! stall3inX18) & v2) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v2 = 1_1)
+
+
+(v2 = 0_1)
+((((! stall3inX18) & v2) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v2 = 1_1)
+
+
+(v1 = 0_1)
+(((v1 & ((stall2inX84 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX84) : 1_1))) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v1 = 1_1)
+
+
+
+
+inv_check: False
+counter example (inv check)
+ a := 8_4
+a_next := 8_4
+b := 0_4
+b_next := 0_4
+c := 8_4
+c_next := 8_4
+reg_init := 0_4
+reg_v := 8_4
+reg_v_comp_prime := 1_4
+reg_v_prime := 8_4
+rst := 0_1
+rst_prime := 0_1
+stage1 := 1_4
+stage1_prime := 1_4
+stage2 := 1_4
+stage2_prime := 3_4
+stage3 := 8_4
+stage3_prime := 8_4
+stall1in := 1_1
+stall2in := 0_1
+stall3in := 1_1
+tag0 := 0_1
+tag0_prime := 0_1
+tag1 := 1_1
+tag1_prime := 0_1
+tag2 := 0_1
+tag2_prime := 1_1
+tag3 := 0_1
+tag3_prime := 0_1
+v1 := 0_1
+v1_next := 0_1
+v2 := 0_1
+v2_next := 0_1
+wen_stage1 := 1_1
+wen_stage1_prime := 0_1
+wen_stage2 := 0_1
+wen_stage2_prime := 1_1
+[(v1 = 0_1), (v2 = 0_1)]
+tag1: 1
+
+
+begin to update inv!
+(v1 = 0_1)
+(((v1 & ((stall2inX146 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX146) : 1_1))) ZEXT 0) = 1_1)
+(((v1 & ((stall2inX84 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX84) : 1_1))) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v1 = 1_1)
+
+
+
+
+begin to update inv!
+(v1 = 0_1)
+(((v1 & ((stall2inX146 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX146) : 1_1))) ZEXT 0) = 1_1)
+(((v1 & ((stall2inX84 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX84) : 1_1))) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v1 = 1_1)
+
+
+
+
+inv_check: False
+counter example (inv check)
+ a := 8_4
+a_next := 8_4
+b := 0_4
+b_next := 0_4
+c := 9_4
+c_next := 9_4
+reg_init := 8_4
+reg_v := 0_4
+reg_v_comp_prime := 1_4
+reg_v_prime := 0_4
+rst := 0_1
+rst_prime := 0_1
+stage1 := 1_4
+stage1_prime := 1_4
+stage2 := 1_4
+stage2_prime := 3_4
+stage3 := 0_4
+stage3_prime := 0_4
+stall1in := 1_1
+stall2in := 0_1
+stall3in := 1_1
+tag0 := 0_1
+tag0_prime := 0_1
+tag1 := 1_1
+tag1_prime := 0_1
+tag2 := 0_1
+tag2_prime := 1_1
+tag3 := 0_1
+tag3_prime := 0_1
+v1 := 0_1
+v1_next := 0_1
+v2 := 0_1
+v2_next := 0_1
+wen_stage1 := 1_1
+wen_stage1_prime := 0_1
+wen_stage2 := 0_1
+wen_stage2_prime := 1_1
+[(v1 = 0_1), (v2 = 0_1)]
+tag1: 1
+
+
+begin to update inv!
+(v2 = 0_1)
+((((! stall3inX18) & v2) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v2 = 1_1)
+
+
+
+
+begin to update inv!
+len of inv_true > 1
+
+
+((tag1 = 1_1) -> (((((stage3 = c) & (stage1 = ((v2 = 1_1) ? b : c))) & (wen_stage2 = v2)) & (wen_stage1 = 1_1)) & (stage2 = b)))
+--------->  False
+((tag1 = 1_1) -> (((((stage3 = b) & (stage1 = b)) & (wen_stage2 = 0_1)) & (wen_stage1 = 1_1)) & (stage2 = b)))
+--------->  False
+((tag1 = 1_1) -> ((((((stage3 = ((0_1 u< v2) ? ((v2 = 1_1) ? b : c) : c)) & (stage1 = ((a * 2_4) + 1_4))) & (wen_stage2 = v1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))) & (v1 = 1_1)))
+--------->  False
+((tag1 = 1_1) -> (((((stage3 = ((a * 2_4) + 1_4)) & (stage1 = ((a * 2_4) + 1_4))) & (wen_stage2 = 0_1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))))
+--------->  False
+((tag1 = 1_1) -> (((((stage3 = b) & (stage1 = ((v1 = 1_1) ? ((a * 2_4) + 1_4) : b))) & (wen_stage2 = ((0_1 u< v1) ? v1 : 0_1))) & (wen_stage1 = 1_1)) & (stage2 = ((0_1 u< v1) ? ((a * 2_4) + 1_4) : b))))
+--------->  False
+((tag1 = 1_1) -> (((((stage3 = ((0_1 u< v1) ? ((a * 2_4) + 1_4) : b)) & (stage1 = ((a * 2_4) + 1_4))) & (wen_stage2 = 0_1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))))
+--------->  True
+((tag1 = 1_1) -> (((((stage3 = b) & (stage1 = ((a * 2_4) + 1_4))) & (wen_stage2 = v1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))))
+--------->  True
+((tag1 = 1_1) -> (((((stage3 = ((a + a) + 1_4)) & (stage1 = ((a + a) + 1_4))) & (wen_stage2 = 0_1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))))
+--------->  False
+(v2 = 0_1)
+((((! stall3inX18) & v2) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v2 = 1_1)
+
+
+(v2 = 0_1)
+((((! stall3inX18) & v2) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v2 = 1_1)
+
+
+
+
+inv_check: False
+counter example (inv check)
+ a := 0_4
+a_next := 0_4
+b := 0_4
+b_next := 0_4
+c := 8_4
+c_next := 8_4
+reg_init := 8_4
+reg_v := 0_4
+reg_v_comp_prime := 1_4
+reg_v_prime := 0_4
+rst := 0_1
+rst_prime := 0_1
+stage1 := 0_4
+stage1_prime := 0_4
+stage2 := 1_4
+stage2_prime := 1_4
+stage3 := 0_4
+stage3_prime := 0_4
+stall1in := 0_1
+stall2in := 1_1
+stall3in := 0_1
+tag0 := 1_1
+tag0_prime := 0_1
+tag1 := 0_1
+tag1_prime := 1_1
+tag2 := 0_1
+tag2_prime := 0_1
+tag3 := 0_1
+tag3_prime := 0_1
+v1 := 0_1
+v1_next := 0_1
+v2 := 1_1
+v2_next := 1_1
+wen_stage1 := 0_1
+wen_stage1_prime := 1_1
+wen_stage2 := 0_1
+wen_stage2_prime := 0_1
+[(v1 = 0_1), (v2 = 1_1)]
+tag0: 1
+
+
+begin to update inv!
+len of inv_true > 1
+
+
+((tag0 = 1_1) -> (((((wen_stage1 = v1) & (wen_stage2 = v2)) & (stage1 = a)) & (stage2 = b)) & (stage3 = c)))
+--------->  False
+((tag0 = 1_1) -> (((((stage3 = b) & (stage1 = a)) & (wen_stage2 = 0_1)) & (wen_stage1 = v1)) & (stage2 = b)))
+--------->  False
+((tag0 = 1_1) -> ((((((stage3 = b) & (stage1 = a)) & (wen_stage2 = v1)) & (wen_stage1 = 0_1)) & (stage2 = ((a * 2_4) + 1_4))) & (v2 = 1_1)))
+--------->  True
+((tag0 = 1_1) -> ((((((stage3 = ((v1 = 1_1) ? ((a + a) + 1_4) : b)) & (stage1 = a)) & (wen_stage2 = 0_1)) & (wen_stage1 = 0_1)) & (stage2 = ((a * 2_4) + 1_4))) & (v2 = 1_1)))
+--------->  True
+((tag0 = 1_1) -> ((((((stage3 = ((0_1 u< v2) ? ((v2 = 1_1) ? b : c) : c)) & (stage1 = a)) & (wen_stage2 = v1)) & (wen_stage1 = 0_1)) & (stage2 = ((a * 2_4) + 1_4))) & (v1 = 1_1)))
+--------->  False
+((tag0 = 1_1) -> ((((((stage3 = ((v1 = 1_1) ? ((a * 2_4) + 1_4) : b)) & (stage1 = a)) & (wen_stage2 = 0_1)) & (wen_stage1 = 0_1)) & (stage2 = ((a * 2_4) + 1_4))) & (v1 = 1_1)))
+--------->  False
+((((stall1inX18 = 1_1) ? 0_1 : ((v1 = 1_1) ? ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1)) : 1_1)) ZEXT 0) = 0_1)
+(v1 = 0_1)
+(((((((stall1inX18 = 1_1) ? 0_1 : ((v1 = 1_1) ? ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1)) : 1_1)) = 1_1) ? 1_1 : (((v1 & ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1))) = 1_1) ? 0_1 : v1)) & ((stall2inX33 = 1_1) ? 0_1 : (((((v1 & ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1))) = 1_1) ? v1 : ((((! stall3inX18) & v2) = 1_1) ? 0_1 : v2)) = 1_1) ? (! stall3inX33) : 1_1))) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v1 = 1_1)
+
+
+((((stall1inX18 = 1_1) ? 0_1 : ((v1 = 1_1) ? ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1)) : 1_1)) ZEXT 0) = 0_1)
+(v1 = 0_1)
+(((((((stall1inX18 = 1_1) ? 0_1 : ((v1 = 1_1) ? ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1)) : 1_1)) = 1_1) ? 1_1 : (((v1 & ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1))) = 1_1) ? 0_1 : v1)) & ((stall2inX33 = 1_1) ? 0_1 : (((((v1 & ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1))) = 1_1) ? v1 : ((((! stall3inX18) & v2) = 1_1) ? 0_1 : v2)) = 1_1) ? (! stall3inX33) : 1_1))) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v1 = 1_1)
+
+
+
+
+inv_check: False
+counter example (inv check)
+ a := 0_4
+a_next := 0_4
+b := 0_4
+b_next := 0_4
+c := 0_4
+c_next := 0_4
+reg_init := 0_4
+reg_v := 9_4
+reg_v_comp_prime := 3_4
+reg_v_prime := 9_4
+rst := 0_1
+rst_prime := 0_1
+stage1 := 1_4
+stage1_prime := 3_4
+stage2 := 1_4
+stage2_prime := 3_4
+stage3 := 0_4
+stage3_prime := 0_4
+stall1in := 0_1
+stall2in := 0_1
+stall3in := 1_1
+tag0 := 0_1
+tag0_prime := 0_1
+tag1 := 1_1
+tag1_prime := 0_1
+tag2 := 0_1
+tag2_prime := 1_1
+tag3 := 0_1
+tag3_prime := 0_1
+v1 := 0_1
+v1_next := 0_1
+v2 := 1_1
+v2_next := 1_1
+wen_stage1 := 1_1
+wen_stage1_prime := 1_1
+wen_stage2 := 0_1
+wen_stage2_prime := 1_1
+[(v1 = 0_1), (v2 = 1_1)]
+tag1: 1
+
+
+begin to update inv!
+((((stall1inX18 = 1_1) ? 0_1 : ((v1 = 1_1) ? ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1)) : 1_1)) ZEXT 0) = 0_1)
+(v1 = 0_1)
+(((((((stall1inX18 = 1_1) ? 0_1 : ((v1 = 1_1) ? ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1)) : 1_1)) = 1_1) ? 1_1 : (((v1 & ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1))) = 1_1) ? 0_1 : v1)) & ((stall2inX33 = 1_1) ? 0_1 : (((((v1 & ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1))) = 1_1) ? v1 : ((((! stall3inX18) & v2) = 1_1) ? 0_1 : v2)) = 1_1) ? (! stall3inX33) : 1_1))) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v1 = 1_1)
+
+
+
+
+begin to update inv!
+len of inv_true > 1
+
+
+((tag1 = 1_1) -> (((((stage3 = c) & (stage1 = ((v2 = 1_1) ? b : c))) & (wen_stage2 = v2)) & (wen_stage1 = 1_1)) & (stage2 = b)))
+--------->  False
+((tag1 = 1_1) -> (((((stage3 = b) & (stage1 = b)) & (wen_stage2 = 0_1)) & (wen_stage1 = 1_1)) & (stage2 = b)))
+--------->  False
+((tag1 = 1_1) -> ((((((stage3 = ((0_1 u< v2) ? ((v2 = 1_1) ? b : c) : c)) & (stage1 = ((a * 2_4) + 1_4))) & (wen_stage2 = v1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))) & (v1 = 1_1)))
+--------->  False
+((tag1 = 1_1) -> (((((stage3 = ((a * 2_4) + 1_4)) & (stage1 = ((a * 2_4) + 1_4))) & (wen_stage2 = 0_1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))))
+--------->  False
+((tag1 = 1_1) -> (((((stage3 = b) & (stage1 = ((v1 = 1_1) ? ((a * 2_4) + 1_4) : b))) & (wen_stage2 = ((0_1 u< v1) ? v1 : 0_1))) & (wen_stage1 = 1_1)) & (stage2 = ((0_1 u< v1) ? ((a * 2_4) + 1_4) : b))))
+--------->  False
+((tag1 = 1_1) -> ((((((stage3 = ((0_1 u< v1) ? ((a * 2_4) + 1_4) : b)) & (stage1 = ((a * 2_4) + 1_4))) & (wen_stage2 = 0_1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))) & (v2 = 1_1)))
+--------->  True
+((tag1 = 1_1) -> ((((((stage3 = b) & (stage1 = ((a * 2_4) + 1_4))) & (wen_stage2 = v1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))) & (v2 = 1_1)))
+--------->  True
+((tag1 = 1_1) -> (((((stage3 = ((a + a) + 1_4)) & (stage1 = ((a + a) + 1_4))) & (wen_stage2 = 0_1)) & (wen_stage1 = 1_1)) & (stage2 = ((a * 2_4) + 1_4))))
+--------->  False
+(v1 = 0_1)
+((((! stall3inX303) & ((0_1 u< v1) ? v1 : 0_1)) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v1 = 1_1)
+
+
+((((stall1inX18 = 1_1) ? 0_1 : ((v1 = 1_1) ? ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1)) : 1_1)) ZEXT 0) = 0_1)
+(v1 = 0_1)
+(((((((stall1inX18 = 1_1) ? 0_1 : ((v1 = 1_1) ? ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1)) : 1_1)) = 1_1) ? 1_1 : (((v1 & ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1))) = 1_1) ? 0_1 : v1)) & ((stall2inX33 = 1_1) ? 0_1 : (((((v1 & ((stall2inX18 = 1_1) ? 0_1 : ((v2 = 1_1) ? (! stall3inX18) : 1_1))) = 1_1) ? v1 : ((((! stall3inX18) & v2) = 1_1) ? 0_1 : v2)) = 1_1) ? (! stall3inX33) : 1_1))) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v1 = 1_1)
+
+
+
+
+inv_check: False
+counter example (inv check)
+ a := 3_4
+a_next := 3_4
+b := 7_4
+b_next := 7_4
+c := 15_4
+c_next := 15_4
+reg_init := 0_4
+reg_v := 7_4
+reg_v_comp_prime := 15_4
+reg_v_prime := 7_4
+rst := 0_1
+rst_prime := 0_1
+stage1 := 3_4
+stage1_prime := 3_4
+stage2 := 7_4
+stage2_prime := 7_4
+stage3 := 7_4
+stage3_prime := 7_4
+stall1in := 1_1
+stall2in := 0_1
+stall3in := 0_1
+tag0 := 1_1
+tag0_prime := 1_1
+tag1 := 0_1
+tag1_prime := 0_1
+tag2 := 0_1
+tag2_prime := 0_1
+tag3 := 0_1
+tag3_prime := 0_1
+v1 := 1_1
+v1_next := 1_1
+v2 := 0_1
+v2_next := 0_1
+wen_stage1 := 1_1
+wen_stage1_prime := 0_1
+wen_stage2 := 0_1
+wen_stage2_prime := 1_1
+[(v1 = 1_1), (v2 = 0_1)]
+tag0: 1
+
+
+begin to update inv!
+(v2 = 0_1)
+((((! stall3inX18) & v2) ZEXT 0) = 1_1)
+len of constraints 1
+
+unsat_core_cons:
+(v2 = 1_1)
+
+
+
+
+inv_check: True
+counter example (inv check)
+ None
+
+
+
+
+finish! Find inv!
+number of ilterations: 8
+cex tag record: ['tag0', 'tag0', 'tag1', 'tag1', 'tag0', 'tag1', 'tag0']
+
+
+init: (((tag1 = 0_1) & (tag0 = 1_1) & (tag3 = 0_1) & (tag2 = 0_1)) & (v1 = wen_stage1) & (v2 = wen_stage2) & (a = stage1) & (b = stage2) & (c = stage3) & (rst = 0_1) & (rst_prime = 0_1))
+init_check: True
+
+
+
+inv_check: True
+
+
+
+(((! tag2) | (reg_v bvcomp stage3)) = 1_1)
+(((stage3_prime = ((... = ...) ? stage3 : (... ? ... : ...))) & (tag3_prime = ((... = ...) ? 0_1 : (... ? ... : ...))) & (reg_v_comp_prime = ((... * ...) + (... ZEXT 3))) & (tag2_prime = ((... = ...) ? 0_1 : (... ? ... : ...))) & (reg_v_prime = ((... = ...) ? reg_init : reg_v)) & (stage1_prime = ((... = ...) ? stage1 : (... ? ... : ...))) & (wen_stage2_prime = ((... = ...) ? wen_stage2 : (... ? ... : ...))) & (wen_stage1_prime = ((... = ...) ? wen_stage1 : (... ? ... : ...))) & (stage2_prime = ((... = ...) ? stage2 : (... ? ... : ...))) & (tag0_prime = ((... = ...) ? 1_1 : (... ? ... : ...))) & (tag1_prime = ((... = ...) ? 0_1 : (... ? ... : ...)))) & (((! tag2) | (reg_v bvcomp stage3)) = 1_1))
+
+
+property: (! ((! ((! tag3) | (reg_v_comp bvcomp stage3))) = 1_1))
+prop_check: True
+counter example (prop check):
+ None
+Verification Time:7(s):  
