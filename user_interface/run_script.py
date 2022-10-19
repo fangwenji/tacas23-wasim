@@ -45,7 +45,7 @@ def main(argv):
         f_t.close()
         f.close()
         print('Running script:', script)
-        os.system('python {s} > {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
+        os.system('python3 {s} > {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
         os.remove(temp_script)
         print('Finish!\n\n')
         print('Log is stored in path: {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
