@@ -32,7 +32,7 @@ def symtraverse_all_step():
 
 
   btor_parser = BTOR2Parser()
-  sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase1_2-simple_MAC_no_stall/simple_MAC.btor2"))
+  sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/simple_MAC_no_stall.btor2"))
   executor = SymbolicExecutor(sts)
   # #tag0->tag0 initialize
   init_setting = executor.convert({
@@ -100,10 +100,10 @@ def symtraverse_all_step():
   end_time = time.perf_counter()
 
 
-  # file_name = "../output/branch_list_c1_2.pkl"
-  # open_file = open(file_name,"wb")
-  # pickle.dump(branch_list,open_file)
-  # open_file.close()
+  file_name = "/home/tacas23/wasim/output/trace_simple_MAC_no_stall.pkl"
+  open_file = open(file_name,"wb")
+  pickle.dump(branch_list,open_file)
+  open_file.close()
 
 
   print('program running time: %d(s):  ' %round((end_time-start_time),10))

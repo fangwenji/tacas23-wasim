@@ -22,7 +22,7 @@ def symtraverse_all_step():
 
 
   btor_parser = BTOR2Parser()
-  sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase1-simple_MAC/simple_MAC.btor2"))
+  sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/simple_MAC_stall.btor2"))
   executor = SymbolicExecutor(sts)
   # #tag0->tag0 initialize
   init_setting = executor.convert({
@@ -165,7 +165,7 @@ def symtraverse_all_step():
   (flag6, start_num6, end_num6, end_time6) = extend_branch_same_phase(branch_list, executor, sts, base_sv, flag='tag3_3', phase_marker=\
    {'tag0':0, 'tag1':0, 'tag2':0, 'tag3':1})
 
-  file_name = "../output/branch_list_c1.pkl"
+  file_name = "/home/tacas23/wasim/output/trace_simple_MAC_stall.pkl"
   open_file = open(file_name,"wb")
   pickle.dump(branch_list,open_file)
   open_file.close()

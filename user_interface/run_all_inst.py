@@ -37,9 +37,10 @@ def main(argv):
                 f.writelines(line_new)
         f_t.close()
         f.close()
-
-        os.system('python {s} > {l}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
+        print('Running script:', script)
+        os.system('python3 {s} > {l}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
         os.remove(temp_script)
+        print('Finish!\n\n')
         
 if __name__ == "__main__":
    main(sys.argv[1:])
