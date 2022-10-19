@@ -6,11 +6,11 @@ def main(argv):
    try:
       opts, args = getopt.getopt(argv,"hs:l:i:",["script=","logdir=","inst="])
    except getopt.GetoptError:
-      ('run_inst.py  -s <script> -l <logpath> -i <inst_type>')
+      ('run_script.py  -s <script> -l <logpath> -i <inst_type>')
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-         print('run_inst.py -s <script> -l <logdir> -i <inst_type>')
+         print('run_script.py -s <script> -l <logdir> -i <inst_type>')
          sys.exit()
       elif opt in ("-s", "--script"):
          script = arg
@@ -20,7 +20,7 @@ def main(argv):
    print('Log file:', logdir)
    print('Instruction type:', logdir)
    print('\n')
-   assert(inst_type == ('all' or 'add' or 'nand' or 'nop'))
+   assert(inst_type == ('all' or 'add' or 'nand' or 'nop' or 'none'))
    if inst_type == 'all':
       inst_list = ['add', 'nand', 'set', 'nop']
    else:
