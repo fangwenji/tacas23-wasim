@@ -12,8 +12,12 @@ def main(argv):
       if opt == '-h':
          print('run_script.py -s <script> -l <logdir> -i <inst_type>')
          sys.exit()
+    #   elif opt in ("-i", "--inst"):
+    #      inst = arg
       elif opt in ("-s", "--script"):
          script = arg
+      elif opt in ("-l", "--logdir"):
+         logdir = arg
       elif opt in ("-i", "--inst"):
          inst_type = arg
    print('Script name:   ', script)
@@ -41,11 +45,10 @@ def main(argv):
         f_t.close()
         f.close()
         print('Running script:', script)
-        os.system('python {s} > {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
+        os.system('python3 {s} > {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
         os.remove(temp_script)
         print('Finish!\n\n')
         print('Log is stored in path: {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
         
-
 if __name__ == "__main__":
    main(sys.argv[1:])
