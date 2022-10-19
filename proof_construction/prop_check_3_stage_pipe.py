@@ -21,48 +21,42 @@ import time
 
 def main():
     start_time = time.perf_counter()
-    file_name = "/home/tacas23/wasim/output/branch_list_c4_inst.pkl"
+    file_name = "/home/tacas23/wasim/output/trace_3_stage_pipe_inst.pkl"
     open_file = open(file_name,"rb")
     branch_list = pickle.load(open_file)
 
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase4-four_stage_pipe2/problem_inst.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/3_stage_pipe_inst.btor2"))
     executor = SymbolicExecutor(sts)
 
     init_setting = executor.convert({
-      'RTL_if_id_inst':'inst_id',
-      'RTL_id_ex_operand1':'oper1',
-      'RTL_id_ex_operand2':'oper2',
-      'RTL_id_ex_op':'op',
-      'RTL_id_ex_rd':'rd1',
-      'RTL_id_ex_reg_wen':'w1',
-      'RTL_ex_wb_val':'ex_val',
-      'RTL_ex_wb_rd':'rd2',
-      'RTL_ex_wb_reg_wen':'w2',
-      'RTL_if_id_valid':'v0',
-      'RTL_id_ex_valid':'v1',
-      'RTL_ex_wb_valid':'v2',
-      'RTL_registers[0]':'reg0',
-      'RTL_registers[1]':'reg1',
-      'RTL_registers[2]':'reg2',
-      'RTL_registers[3]':'reg3',
-      'RTL_scoreboard[0]':'s0',
-      'RTL_scoreboard[1]':'s1',
-      'RTL_scoreboard[2]':'s2',
-      'RTL_scoreboard[3]':'s3',
-      '__VLG_I_inst': 'inst',
-      '__VLG_I_inst_valid':'inst_v',
-      '__ILA_I_inst':'ila_inst'
-      })
+    'RTL_id_ex_operand1':'oper1',
+    'RTL_id_ex_operand2':'oper2',
+    'RTL_id_ex_op':'op',
+    'RTL_id_ex_rd':'rd1',
+    'RTL_id_ex_reg_wen':'w1',
+    'RTL_ex_wb_val':'ex_val',
+    'RTL_ex_wb_rd':'rd2',
+    'RTL_ex_wb_reg_wen':'w2',
+    'RTL_id_ex_valid':'v1',
+    'RTL_ex_wb_valid':'v2',
+    'RTL_registers[0]':'reg0',
+    'RTL_registers[1]':'reg1',
+    'RTL_registers[2]':'reg2',
+    'RTL_registers[3]':'reg3',
+    'RTL_scoreboard[0]':'s0',
+    'RTL_scoreboard[1]':'s1',
+    'RTL_scoreboard[2]':'s2',
+    'RTL_scoreboard[3]':'s3',
+    '__VLG_I_inst': 'inst',
+    '__VLG_I_inst_valid':'inst_v',
+    '__ILA_I_inst':'inst'
+    })
 
     for k,v in init_setting.items():
         if(str(k) == '__ILA_I_inst'):
             inst = v
-    start = executor.sv('__START__')
-    tag_id = tobool(executor.sv('stage_tracker_if_id_iuv'))
-    tag_ex = tobool(executor.sv('stage_tracker_id_ex_iuv'))
-    tag_wb = tobool(executor.sv('stage_tracker_ex_wb_iuv'))
-    tag_finish = tobool(executor.sv('stage_tracker_wb_iuv'))
+    start, ppl_stage_ex, ppl_stage_wb, ppl_stage_finish = executor.sv('__START__'), tobool(executor.sv('ppl_stage_ex')), tobool(executor.sv('ppl_stage_wb')), tobool(executor.sv('ppl_stage_finish'))
     ILA_r0, ILA_r1, ILA_r2, ILA_r3 = executor.sv('ILA_r0'),  executor.sv('ILA_r1'), executor.sv('ILA_r2'), executor.sv('ILA_r3')
     rst = executor.sv('rst')
     inst_ila = executor.sv('__ILA_I_inst')
@@ -72,16 +66,18 @@ def main():
 
 
     #layer4 -- wb-wb
-    inv_group_wb = InvGroup(layer=6,tag=tag_wb,branch_list=branch_list)
-    inv_group_wb.branch2state()
-    _, inv_reg_wb = inv_group_wb.extract_reg()
+    inv_group4 = InvGroup(layer=4,tag=ppl_stage_wb,branch_list=branch_list)
+    inv_group4.branch2state()
+    inv_group4_l4 = inv_group4.get_inv_group()
+    _, inv_reg4 = inv_group4.extract_reg()
 
 
     #layer5 -- wb-finish
-    inv_group_finish = InvGroup(layer=7,tag=tag_finish,branch_list=branch_list)
-    inv_group_finish.branch2state()
-    inv_group_finish.inv_deduplicate()
-    _, inv_reg_finish = inv_group_finish.extract_reg()
+    inv_group5 = InvGroup(layer=5,tag=ppl_stage_finish,branch_list=branch_list)
+    inv_group5.branch2state()
+    inv_group5_l5 = inv_group5.get_inv_group()
+    inv_group5.inv_deduplicate()
+    _, inv_reg5 = inv_group5.extract_reg()
 
 
     ## get transition relations
@@ -102,7 +98,7 @@ def main():
 
     wb_state_list = []
     wb_list = []
-    for reg_expr_list in inv_reg_wb:
+    for reg_expr_list in inv_reg4:
         for idx in range(len(reg_expr_list)):
             assert(len(reg_expr_list) == len(tag_ila))
             eq_expr = EqualsOrIff(reg_expr_list[idx],tag_ila[idx])
@@ -113,7 +109,7 @@ def main():
 
     finish_state_list = []
     finish_list = []
-    for reg_expr_list in inv_reg_finish:
+    for reg_expr_list in inv_reg5:
         for idx in range(len(reg_expr_list)):
             assert(len(reg_expr_list) == len(trans_new_list))
             eq_expr = NotEquals(reg_expr_list[idx],trans_new_list[idx])
@@ -140,8 +136,9 @@ def main():
     # sat_check = substitute(sat_check, sts.v2vprime)
     # print(sat_check.serialize())
     end_time = time.perf_counter()
-    print('Verification Time:%d(s):  ' %round((end_time-start_time),2))
+    print('Verification Time:%d(s):  ' %round((end_time-start_time),5))
     print('Verification Time:%d(ms):  ' %int( round((end_time-start_time) * 1000) ))
+
 
 
     

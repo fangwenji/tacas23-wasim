@@ -7,7 +7,7 @@ import copy
 from symsim_framework.symtraverse import *
 
 btor_parser = BTOR2Parser()
-sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase1_2-simple_MAC_no_stall/test.btor2"))
+sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/simple_MAC_no_stall.btor2"))
 executor = SymbolicExecutor(sts)
 
 

@@ -15,13 +15,13 @@ import time
 
 def main():
     start_time = time.perf_counter()
-    file_name = "/home/tacas23/wasim/output/branch_list_c1_2.pkl"
+    file_name = "/home/tacas23/wasim/output/trace_simple_MAC_no_stall.pkl"
     open_file = open(file_name,"rb")
     branch_list = pickle.load(open_file)
 
 
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase1_2-simple_MAC_no_stall/simple_MAC.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/simple_MAC_no_stall.btor2"))
     executor = SymbolicExecutor(sts)
 
 
@@ -49,11 +49,6 @@ def main():
 
 
     ###############################################################################
-
-    # tag0 = EqualsOrIff(executor.sv('tag0'),BV(1,1))
-    # tag1 = EqualsOrIff(executor.sv('tag1'),BV(1,1))
-    # tag2 = EqualsOrIff(executor.sv('tag2'),BV(1,1))
-    # tag3 = EqualsOrIff(executor.sv('tag3'),BV(1,1))
     tag0, tag1, tag2, tag3 = tobool(executor.sv('tag0')), tobool(executor.sv('tag1')), tobool(executor.sv('tag2')), tobool(executor.sv('tag3'))
     rst = executor.sv('rst')
 
@@ -64,9 +59,6 @@ def main():
         state_expr_single.append(EqualsOrIff(var, expr))
     state_expr = And(state_expr_single)
     free_var = get_free_variables(state_expr)
-
-    # asmpt_test = asmpt_test.serialize()
-    # free_var = get_free_variables(asmpt_init)
     print(free_var)
     print(type(free_var))
 
@@ -82,25 +74,6 @@ def main():
         elif(str(var) == 'c'):
             c = var
 
-    
-
-
-    
-
-    # #tag2 - tag2
-    # inv_group4 = InvGroup(layer=4,tag=tag2,branch_list=branch_list)
-    # inv_group4.branch2state()
-    # inv_group4_l4 = inv_group4.get_inv_group()
-    # inv_dedup4 = inv_group4.inv_deduplicate()
-    # inv_l4 = Or(inv_dedup4)
-    # inv_l4_prop = inv_group4.extract_prop('stage3')
-    # #tag2 - tag3
-    # inv_group5 = InvGroup(layer=5,tag=tag3,branch_list=branch_list)
-    # inv_group5.branch2state()
-    # inv_group5_l5 = inv_group5.get_inv_group()
-    # inv_dedup5 = inv_group5.inv_deduplicate()
-    # inv_l5 = Or(inv_dedup5)
-    # inv_l5_prop = inv_group5.extract_prop('stage3')
 
     #tag2
     inv_group2 = InvGroup(layer=2,tag=tag2,branch_list=branch_list)

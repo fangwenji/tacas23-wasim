@@ -14,13 +14,13 @@ import time
 
 def main():
     start_time = time.perf_counter()
-    file_name = "/home/tacas23/wasim/output/branch_list_c1_2.pkl"
+    file_name = "/home/tacas23/wasim/output/trace_simple_MAC_no_stall.pkl"
     open_file = open(file_name,"rb")
     branch_list = pickle.load(open_file)
 
 
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase1_2-simple_MAC_no_stall/simple_MAC.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/simple_MAC_no_stall.btor2"))
     executor = SymbolicExecutor(sts)
 
 
@@ -52,11 +52,6 @@ def main():
 
 
     ###############################################################################
-
-    # tag0 = EqualsOrIff(executor.sv('tag0'),BV(1,1))
-    # tag1 = EqualsOrIff(executor.sv('tag1'),BV(1,1))
-    # tag2 = EqualsOrIff(executor.sv('tag2'),BV(1,1))
-    # tag3 = EqualsOrIff(executor.sv('tag3'),BV(1,1))
     tag0, tag1, tag2, tag3 = tobool(executor.sv('tag0')), tobool(executor.sv('tag1')), tobool(executor.sv('tag2')), tobool(executor.sv('tag3'))
     rst = executor.sv('rst')
 
@@ -129,11 +124,6 @@ def main():
     inv_l3 = Or(inv_dedup3)
     inv_l3_prop = inv_group3.extract_prop('stage3')
 
-    
-    
-
-    
-
 
     ###inv check
     #1:  sts.trans
@@ -179,74 +169,6 @@ def main():
     #init inv check
     (check_result,cex,inv_prop) = inv_check_func_c1_2(inv_l0,inv_l1,inv_l2,inv_l3,inv_group2_l2, inv_group3_l3, trans_update, asmpt, sts, prop1,inv_addprop)
 
-    # i = 1
-    
-    # tag_record_list = []
-    # # while(i!=0):
-    # #     i = i-1
-    # # exit()
-    # while(check_result == False):
-    #     i = i+1
-    #     (v_cons,n_tag0,n_tag1,n_tag2,n_tag3) = cex_parser_c1(cex)
-
-    #     ce_constr_v = []
-    #     v1_cons_0 = EqualsOrIff(v1,BV(0,1))
-    #     v1_cons_1 = EqualsOrIff(v1,BV(1,1))
-    #     v2_cons_0 = EqualsOrIff(v2,BV(0,1))
-    #     v2_cons_1 = EqualsOrIff(v2,BV(1,1))
-    #     if(v_cons == 0):
-    #         ce_constr_v = [v1_cons_0,v2_cons_0]
-    #     elif(v_cons == 1):
-    #         ce_constr_v = [v1_cons_0,v2_cons_1]
-    #     elif(v_cons == 2):
-    #         ce_constr_v = [v1_cons_1,v2_cons_0]
-    #     elif(v_cons == 3):
-    #         ce_constr_v = [v1_cons_1,v2_cons_1]
-    #     print(ce_constr_v)
-                
-    #     old_cons_list = ['(v1 = 0_1)','(v1 = 1_1)','(v2 = 0_1)','(v2 = 1_1)']
-    #     new_cons_list = [EqualsOrIff(v1,BV(1,1)),EqualsOrIff(v1,BV(0,1)),EqualsOrIff(v2,BV(1,1)),EqualsOrIff(v2,BV(0,1))]
-
-    #     ### inv update
-    #     if(n_tag0 == 1):
-    #         print('tag0:',n_tag0)
-    #         # input('tag')
-    #         ce_constr = copy.copy(ce_constr_v)
-    #         inv_dedup0,_ = inv_group0.update_inv(cex,ce_constr,old_cons_list,new_cons_list)
-    #         inv_l0 = Or(inv_dedup0)
-    #         tag_record_list.append('tag0')
-    #     elif(n_tag1 == 1):
-    #         print('tag1:',n_tag1)
-    #         # input('tag')
-    #         ce_constr = copy.copy(ce_constr_v)
-    #         inv_dedup1,_ = inv_group1.update_inv(cex,ce_constr,old_cons_list,new_cons_list)
-    #         inv_l1 = Or(inv_dedup1)
-
-    #         ce_constr = copy.copy(ce_constr_v)
-    #         inv_dedup2,_ = inv_group2.update_inv(cex,ce_constr,old_cons_list,new_cons_list)
-    #         inv_l2 = Or(inv_dedup2)
-    #         tag_record_list.append('tag1')
-    #     elif(n_tag2 == 1):
-    #         pass
-    #     elif(n_tag3 == 1):
-    #         pass
-        
-    #     ##inv check
-    #     (check_result,cex,inv_prop) = inv_check_func_c1_2(inv_l0,inv_l1,inv_l2,inv_l3,inv_l4, inv_group4_l4, inv_group5_l5, trans_update, asmpt, sts, prop1,inv_addprop)
-
-        
-    #     # inv_group0.test_ce(cex)
-    #     # inv_group0.test_ce_prime(cex,sts)
-        
-    #     # input()
-    # print('\n\n\n\nfinish! Find inv!')
-    # print('number of ilterations:',i)
-    # print('cex tag record:',tag_record_list)
-
-    
-    # inv_prop = And(inv_asmpt,prop)
-    # inv_prop = inv_asmpt
-    # inv_prop = And(inv_prop,prop3)
 
     print('-'*20)
     # 1.init check

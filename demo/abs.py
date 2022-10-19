@@ -1,4 +1,6 @@
-
+import sys
+sys.path.append('/home/tacas23/wasim')
+sys.path.append('/home/tacas23/wasim/symsim_framework')
 from pathlib import Path
 import copy
 from symtraverse import *
@@ -42,7 +44,7 @@ class PredicateAbstraction(Abstraction):
 
 
 btor_parser = BTOR2Parser()
-sts, _ = btor_parser.parse_file(Path("/data/wenji/WASIM/counter/counter.btor2"))
+sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/design/counter.btor2"))
 executor = SymbolicExecutor(sts)
 
 executor.init({})

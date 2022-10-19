@@ -25,7 +25,7 @@ def arg_check(formula, state_asmpt:dict):
 
 def ila_trans():
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase2-three_stage_pipe/problem_add.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/3_state_pipe_inst.btor2"))
     executor = SymbolicExecutor(sts)
     init_dict = {
         'ILA_r0' : 'x0',
@@ -70,7 +70,7 @@ def ila_trans():
 
 def main(extracted_list, sv_extracted_list):
     start_time = time.perf_counter()
-    file_name = "/home/tacas23/wasim/output/branch_list_c2_add.pkl"
+    file_name = "/home/tacas23/wasim/output/trace_3_state_pipe_inst.pkl"
     open_file = open(file_name,"rb")
     branch_list = pickle.load(open_file)
     num_layer = 5
@@ -79,7 +79,7 @@ def main(extracted_list, sv_extracted_list):
 
 
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase2-three_stage_pipe/problem_add.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/3_state_pipe_inst.btor2"))
     executor = SymbolicExecutor(sts)
 
     init_dict = {

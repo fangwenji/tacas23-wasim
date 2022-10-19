@@ -14,13 +14,13 @@ import time
 
 def main():
     start_time = time.perf_counter()
-    file_name = "/home/tacas23/wasim/output/branch_list_c1.pkl"
+    file_name = "/home/tacas23/wasim/output/trace_simple_MAC_stall.pkl"
     open_file = open(file_name,"rb")
     branch_list = pickle.load(open_file)
 
 
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase1-simple_MAC/simple_MAC.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/simple_MAC_stall.btor2"))
     executor = SymbolicExecutor(sts)
 
 
