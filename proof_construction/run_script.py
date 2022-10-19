@@ -18,9 +18,9 @@ def main(argv):
          inst_type = arg
    print('Script name:   ', script)
    print('Log file:', logdir)
-   print('Instruction type:', logdir)
+   print('Instruction type:', inst_type)
    print('\n')
-   assert(inst_type == ('all' or 'add' or 'nand' or 'nop' or 'none'))
+   assert inst_type in ['all', 'add', 'nand', 'nop', 'none']
    if inst_type == 'all':
       inst_list = ['add', 'nand', 'set', 'nop']
    else:
@@ -40,9 +40,11 @@ def main(argv):
                 f.writelines(line_new)
         f_t.close()
         f.close()
-
-        os.system('python {s} > {l}_{i}_proof.txt'.format(s=temp_script, l=logdir, i=inst))
+        print('Running script:', script)
+        os.system('python {s} > {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
         os.remove(temp_script)
+        print('Finish!\n\n')
+        print('Log is stored in path: {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
         
 
 if __name__ == "__main__":
