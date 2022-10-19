@@ -600,7 +600,7 @@ end
 endmodule
 `default_nettype none
 
-// Hongce Zhang @ Princeton
+//  
 // A simple pipelined processor
 // that can only do add/sub/nop/and
 // with only 4 registers

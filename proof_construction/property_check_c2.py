@@ -10,8 +10,8 @@ from copyreg import pickle
 from pysmt.fnode import *
 import pickle
 import sys
-sys.path.append('/data/wenjifang/WASIM')
-sys.path.append('/data/wenjifang/WASIM/symsim_framework')
+sys.path.append('/home/tacas23/wasim')
+sys.path.append('/home/tacas23/wasim/symsim_framework')
 from symsim_framework.btorparser import *
 from symsim_framework.symsim import *
 import time
@@ -21,12 +21,12 @@ import time
 
 def main():
     start_time = time.perf_counter()
-    file_name = "/data/wenjifang/WASIM/output/branch_list_c2_inst.pkl"
+    file_name = "/home/tacas23/wasim/output/branch_list_c2_add.pkl"
     open_file = open(file_name,"rb")
     branch_list = pickle.load(open_file)
 
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/data/wenjifang/WASIM/design/testcase2-three_stage_pipe/problem_inst.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase2-three_stage_pipe/problem_add.btor2"))
     executor = SymbolicExecutor(sts)
 
     init_setting = executor.convert({

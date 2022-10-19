@@ -4,8 +4,8 @@ from pysmt.fnode import *
 import pickle
 import time
 import sys
-sys.path.append('/data/wenjifang/WASIM')
-sys.path.append('/data/wenjifang/WASIM/symsim_framework')
+sys.path.append('/home/tacas23/wasim')
+sys.path.append('/home/tacas23/wasim/symsim_framework')
 from symsim_framework.symtraverse import *
 
 
@@ -22,7 +22,7 @@ def symtraverse_all_step():
 
 
   btor_parser = BTOR2Parser()
-  sts, _ = btor_parser.parse_file(Path("/data/wenjifang/WASIM/design/testcase1-simple_MAC/simple_MAC.btor2"))
+  sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase1-simple_MAC/simple_MAC.btor2"))
   executor = SymbolicExecutor(sts)
   # #tag0->tag0 initialize
   init_setting = executor.convert({
@@ -134,41 +134,41 @@ def symtraverse_all_step():
   print('Step: tag0-->tag0')
   (flag0, start_num0, end_num0, end_time0) = extend_branch_init(branch_list, executor, sts, base_sv, flag='tag0_0')
 
-  # #Step: tag0-->tag1
-  # print('\n\n\nStep: tag0-->tag1')
-  # (flag1, start_num1, end_num1, end_time1) = extend_branch_next_phase(branch_list, executor, sts, base_sv, flag='tag0_1', phase_marker=\
-  #  {'tag0':1, 'tag1':0, 'tag2':0, 'tag3':0})
+  #Step: tag0-->tag1
+  print('\n\n\nStep: tag0-->tag1')
+  (flag1, start_num1, end_num1, end_time1) = extend_branch_next_phase(branch_list, executor, sts, base_sv, flag='tag0_1', phase_marker=\
+   {'tag0':1, 'tag1':0, 'tag2':0, 'tag3':0})
   
-  # #Step: tag1-->tag1
-  # print('\n\n\nStep: tag1-->tag1')
-  # (flag2, start_num2, end_num2, end_time2) = extend_branch_same_phase(branch_list, executor, sts, base_sv, flag='tag1_1', phase_marker=\
-  #  {'tag0':0, 'tag1':1, 'tag2':0, 'tag3':0})
+  #Step: tag1-->tag1
+  print('\n\n\nStep: tag1-->tag1')
+  (flag2, start_num2, end_num2, end_time2) = extend_branch_same_phase(branch_list, executor, sts, base_sv, flag='tag1_1', phase_marker=\
+   {'tag0':0, 'tag1':1, 'tag2':0, 'tag3':0})
   
-  # #Step: tag1-->tag2
-  # print('\n\n\nStep: tag1-->tag2')
-  # (flag3, start_num3, end_num3, end_time3) = extend_branch_next_phase(branch_list, executor, sts, base_sv, flag='tag1_2', phase_marker=\
-  #  {'tag0':0, 'tag1':1, 'tag2':0, 'tag3':0})
+  #Step: tag1-->tag2
+  print('\n\n\nStep: tag1-->tag2')
+  (flag3, start_num3, end_num3, end_time3) = extend_branch_next_phase(branch_list, executor, sts, base_sv, flag='tag1_2', phase_marker=\
+   {'tag0':0, 'tag1':1, 'tag2':0, 'tag3':0})
 
 
-  # # #Step: tag2-->tag2
-  # (flag4, start_num4, end_num4, end_time4) = extend_branch_same_phase(branch_list, executor, sts, base_sv, flag='tag2_2', phase_marker=\
-  #  {'tag0':0, 'tag1':0, 'tag2':1, 'tag3':0})
+  # #Step: tag2-->tag2
+  (flag4, start_num4, end_num4, end_time4) = extend_branch_same_phase(branch_list, executor, sts, base_sv, flag='tag2_2', phase_marker=\
+   {'tag0':0, 'tag1':0, 'tag2':1, 'tag3':0})
 
 
-  # # #Step: tag2-->tag3
-  # print('\n\n\nStep: tag2-->tag3')
-  # (flag5, start_num5, end_num5, end_time5) = extend_branch_next_phase(branch_list, executor, sts, base_sv, flag='tag2_3', phase_marker=\
-  #  {'tag0':0, 'tag1':0, 'tag2':1, 'tag3':0})
+  # #Step: tag2-->tag3
+  print('\n\n\nStep: tag2-->tag3')
+  (flag5, start_num5, end_num5, end_time5) = extend_branch_next_phase(branch_list, executor, sts, base_sv, flag='tag2_3', phase_marker=\
+   {'tag0':0, 'tag1':0, 'tag2':1, 'tag3':0})
 
-  # # #Step: tag3-->tag3
-  # print('\n\n\nStep: tag3-->tag3')
-  # (flag6, start_num6, end_num6, end_time6) = extend_branch_same_phase(branch_list, executor, sts, base_sv, flag='tag3_3', phase_marker=\
-  #  {'tag0':0, 'tag1':0, 'tag2':0, 'tag3':1})
+  # #Step: tag3-->tag3
+  print('\n\n\nStep: tag3-->tag3')
+  (flag6, start_num6, end_num6, end_time6) = extend_branch_same_phase(branch_list, executor, sts, base_sv, flag='tag3_3', phase_marker=\
+   {'tag0':0, 'tag1':0, 'tag2':0, 'tag3':1})
 
-  # file_name = "../output/branch_list_c1.pkl"
-  # open_file = open(file_name,"wb")
-  # pickle.dump(branch_list,open_file)
-  # open_file.close()
+  file_name = "../output/branch_list_c1.pkl"
+  open_file = open(file_name,"wb")
+  pickle.dump(branch_list,open_file)
+  open_file.close()
 
   def result_display(flag, num_old, num_new, end_time, start_time):
       print('-'*15)
@@ -176,14 +176,14 @@ def symtraverse_all_step():
       print('program running time: %d(s):  ' %round((end_time-start_time),2))
       print('program running time: %d(min):' %round((end_time-start_time)/60,2))
 
-  # flag_list = [flag0, flag1, flag2, flag3, flag4, flag5, flag6]
-  # num_old_list = [start_num0, start_num1, start_num2, start_num3, start_num4, start_num5, start_num6]
-  # num_new_list = [end_num0, end_num1, end_num2, end_num3, end_num4, end_num5, end_num6]
-  # end_time_list = [end_time0, end_time1, end_time2, end_time3, end_time4, end_time5, end_time6]
+  flag_list = [flag0, flag1, flag2, flag3, flag4, flag5, flag6]
+  num_old_list = [start_num0, start_num1, start_num2, start_num3, start_num4, start_num5, start_num6]
+  num_new_list = [end_num0, end_num1, end_num2, end_num3, end_num4, end_num5, end_num6]
+  end_time_list = [end_time0, end_time1, end_time2, end_time3, end_time4, end_time5, end_time6]
 
-  # print('\n\n\n\n\n--------------------------RESULT--------------------------\n')
-  # for idx in range(len(flag_list)):
-  #   result_display(flag_list[idx], num_old_list[idx], num_new_list[idx], end_time_list[idx], start_time)
+  print('\n\n\n\n\n--------------------------RESULT--------------------------\n')
+  for idx in range(len(flag_list)):
+    result_display(flag_list[idx], num_old_list[idx], num_new_list[idx], end_time_list[idx], start_time)
 
 if __name__ == '__main__':
   symtraverse_all_step()

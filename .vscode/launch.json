@@ -17,7 +17,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": false,
-            "program": "/data/wenjifang/WASIM/user_interface/symtraverse_all_step1.py",
+            "program": "/home/tacas23/wasim/user_interface/symtraverse_all_step1.py",
             "console": "integratedTerminal"
         }
     ]

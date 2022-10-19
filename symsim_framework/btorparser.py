@@ -539,7 +539,7 @@ class BTOR2Parser:
 
 def test_btor_parsing():
     btor_parser = BTOR2Parser()
-    sts, propList = btor_parser.parse_file(Path("/data/wenjifang/SymSim-Framework/design/testcase1-simple_pipe/simple_pipe.btor2"))
+    sts, propList = btor_parser.parse_file(Path("/data/user/SymSim-Framework/design/testcase1-simple_pipe/simple_pipe.btor2"))
     # print(propList)
     # print (sts.variables) #{clk, reg_init, rst, stall1in, stall2in, stall3in, w, stage3, tag3, reg_v_comp, tag2, reg_v, stage1, wen_stage2, wen_stage1, stage2, tag0, tag1}
     print (sts.init) #tag

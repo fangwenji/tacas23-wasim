@@ -6,7 +6,7 @@ def sort_model(m):
 
 def cex_parser_c1(cex):
     # create cex.txt
-    cex_file = '/data/wenjifang/vpipe-mc/btor-symsim/cex.txt'
+    cex_file = '/home/tacas23/wasim/proof_construction/cex.txt'
     with open (cex_file, 'w') as f:
         f.write(sort_model(cex))
     
@@ -52,7 +52,7 @@ def cex_parser_c1(cex):
 
 def cex_parser_c2(cex):
     # create cex.txt
-    cex_file = '/data/wenjifang/SymSim-Framework/proof_construction/cex.txt'
+    cex_file = '/home/tacas23/wasim/proof_construction/cex.txt'
     with open (cex_file, 'w') as f:
         f.write(sort_model(cex))
     
@@ -100,7 +100,7 @@ def cex_parser_c2(cex):
 
 def cex_parser(cex):
     # create cex.txt
-    cex_file = '/data/wenjifang/SymSim-Framework/proof_construction/cex.txt'
+    cex_file = '/home/tacas23/wasim/proof_construction/cex.txt'
     with open (cex_file, 'w') as f:
         f.write(sort_model(cex))
     

@@ -5,8 +5,8 @@ import os
 from pysmt.printers import HRPrinter
 from pysmt.rewritings import conjunctive_partition, disjunctive_partition
 import sys
-sys.path.append('/data/wenjifang/WASIM')
-sys.path.append('/data/wenjifang/WASIM/symsim_framework')
+sys.path.append('/home/tacas23/wasim')
+sys.path.append('/home/tacas23/wasim/symsim_framework')
 from symsim_framework.symtraverse import *
 
 

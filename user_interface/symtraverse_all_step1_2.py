@@ -4,8 +4,8 @@ from pysmt.fnode import *
 import pickle
 import time
 import sys
-sys.path.append('/data/wenjifang/WASIM')
-sys.path.append('/data/wenjifang/WASIM/symsim_framework')
+sys.path.append('/home/tacas23/wasim')
+sys.path.append('/home/tacas23/wasim/symsim_framework')
 from symsim_framework.symtraverse import *
 
 
@@ -32,7 +32,7 @@ def symtraverse_all_step():
 
 
   btor_parser = BTOR2Parser()
-  sts, _ = btor_parser.parse_file(Path("/data/wenjifang/WASIM/design/testcase1_2-simple_MAC_no_stall/test.btor2"))
+  sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase1_2-simple_MAC_no_stall/simple_MAC.btor2"))
   executor = SymbolicExecutor(sts)
   # #tag0->tag0 initialize
   init_setting = executor.convert({

@@ -4,8 +4,8 @@ from pysmt.fnode import *
 import pickle
 import time
 import sys
-sys.path.append('/data/wenjifang/WASIM')
-sys.path.append('/data/wenjifang/WASIM/symsim_framework')
+sys.path.append('/home/tacas23/wasim')
+sys.path.append('/home/tacas23/wasim/symsim_framework')
 from symsim_framework.symtraverse import *
 
 def symtraverse_all_step():
@@ -28,7 +28,7 @@ def symtraverse_all_step():
 
 
   btor_parser = BTOR2Parser()
-  sts, _ = btor_parser.parse_file(Path("/data/wenjifang/WASIM/design/testcase3-four_stage_pipe1/problem_inst.btor2"))
+  sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase3-four_stage_pipe1/problem_inst.btor2"))
   executor = SymbolicExecutor(sts)
 
   # #tag0->tag0 initialize
@@ -224,7 +224,7 @@ def symtraverse_all_step():
   print('program running time: %d(s):  ' %round((end_time6-start_time),2))
   print('program running time: %d(min):' %round((end_time6-start_time)/60,2))
 
-  file_name = "/data/wenjifang/WASIM/output/branch_list_c3_inst.pkl"
+  file_name = "/home/tacas23/wasim/output/branch_list_c3_inst.pkl"
   open_file = open(file_name,"wb")
   pickle.dump(branch_list,open_file)
   open_file.close()

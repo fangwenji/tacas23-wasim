@@ -4,8 +4,8 @@ from pysmt.fnode import *
 import pickle
 import time
 import sys
-sys.path.append('/data/wenjifang/WASIM')
-sys.path.append('/data/wenjifang/WASIM/symsim_framework')
+sys.path.append('/home/tacas23/wasim')
+sys.path.append('/home/tacas23/wasim/symsim_framework')
 from symsim_framework.symtraverse import *
 
 def symtraverse_all_step():
@@ -26,7 +26,7 @@ def symtraverse_all_step():
  
 
   btor_parser = BTOR2Parser()
-  sts, _ = btor_parser.parse_file(Path("/data/wenjifang/WASIM/design/testcase2-three_stage_pipe/problem_add.btor2"))
+  sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase2-three_stage_pipe/problem_add.btor2"))
   executor = SymbolicExecutor(sts)
 
   # #tag0->tag0 initialize
@@ -183,7 +183,7 @@ def symtraverse_all_step():
   (flag4, start_num4, end_num4, end_time4) = extend_branch_next_phase(branch_list, executor, sts, base_sv= {'RTL_registers[0]','RTL_registers[1]','RTL_registers[2]','RTL_registers[3]'}, \
     flag='wb-finish', phase_marker={'__START__': 0, 'ppl_stage_ex': 0, 'ppl_stage_wb': 1, 'ppl_stage_finish': 0})
 
-  file_name = "/data/wenjifang/WASIM/output/branch_list_c2_add.pkl"
+  file_name = "/home/tacas23/wasim/output/branch_list_c2_add.pkl"
   open_file = open(file_name,"wb")
   pickle.dump(branch_list,open_file)
   open_file.close()

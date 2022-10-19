@@ -167,7 +167,7 @@ def run_sygus(free_var, free_var_asmpt, asmpt_and_smtlib, Fun, Fun_type,
         f.write(line9)
 
     # 3.run sygus simplify and transform the FunNew(smtlib) to pysmt.fnode
-    run_cmd('/data/wenjifang/cvc5-Linux --lang=sygus2 {0} > {1}'.format(template_file, result_temp_file), timeout= 0.5)
+    run_cmd('/home/tacas23/cvc5-Linux --lang=sygus2 {0} > {1}'.format(template_file, result_temp_file), timeout= 0.5)
     linecache.clearcache()  ### remember to clear cache before reuse this linecache!!
     line_11 = linecache.getline(result_temp_file, 2).strip()
 

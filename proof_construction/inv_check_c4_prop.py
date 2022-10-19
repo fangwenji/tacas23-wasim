@@ -4,8 +4,8 @@ from copyreg import pickle
 from pysmt.fnode import *
 import pickle
 import sys
-sys.path.append('/data/wenjifang/WASIM')
-sys.path.append('/data/wenjifang/WASIM/symsim_framework')
+sys.path.append('/home/tacas23/wasim')
+sys.path.append('/home/tacas23/wasim/symsim_framework')
 from symsim_framework.btorparser import *
 from symsim_framework.symsim import *
 import time
@@ -25,7 +25,7 @@ def arg_check(formula, state_asmpt:dict):
 
 def ila_trans():
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/data/wenjifang/WASIM/design/testcase4-four_stage_pipe2/problem_set.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase4-four_stage_pipe2/problem_set.btor2"))
     executor = SymbolicExecutor(sts)
     init_dict = {
         'ILA_r0' : 'x0',
@@ -71,7 +71,7 @@ def ila_trans():
 
 def main(extracted_list, sv_extracted_list):
     start_time = time.perf_counter()
-    file_name = "/data/wenjifang/WASIM/output/branch_list_c4_nand.pkl"
+    file_name = "/home/tacas23/wasim/output/branch_list_c4_nand.pkl"
     open_file = open(file_name,"rb")
     branch_list = pickle.load(open_file)
     num_layer = 7
@@ -79,7 +79,7 @@ def main(extracted_list, sv_extracted_list):
 
 
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/data/wenjifang/WASIM/design/testcase4-four_stage_pipe2/problem_nand.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase4-four_stage_pipe2/problem_nand.btor2"))
     executor = SymbolicExecutor(sts)
 
     init_dict = {

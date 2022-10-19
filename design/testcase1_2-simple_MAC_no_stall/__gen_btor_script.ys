@@ -1,7 +1,7 @@
-read_verilog -sv test.v
-prep -top test
+read_verilog -sv simple_MAC.v
+prep -top simple_MAC
 
 hierarchy -check
 setundef -undriven -init -expose
-sim -clock clk -reset rst -rstlen 1 -n 1 -w test
-write_btor  -s test.btor2
+sim -clock clk -reset rst -rstlen 1 -n 1 -w simple_MAC
+write_btor  -s simple_MAC.btor2

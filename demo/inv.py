@@ -1,6 +1,6 @@
 import sys
-sys.path.append('/data/wenjifang/WASIM')
-sys.path.append('/data/wenjifang/WASIM/symsim_framework')
+sys.path.append('/home/tacas23/wasim')
+sys.path.append('/home/tacas23/wasim/symsim_framework')
 
 from pathlib import Path
 import copy
@@ -24,7 +24,7 @@ def abstract(s:StateAsmpt, base_var): # -> StateAsmpt
     return s_new
 
 btor_parser = BTOR2Parser()
-sts, _ = btor_parser.parse_file(Path("/data/wenjifang/WASIM/design/testcase1_2-simple_MAC_no_stall/test.btor2"))
+sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/testcase1_2-simple_MAC_no_stall/test.btor2"))
 executor = SymbolicExecutor(sts)
 
 init_setting = executor.convert({
