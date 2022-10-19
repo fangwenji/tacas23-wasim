@@ -28,5 +28,5 @@ executor.sim_one_step()
 
 state = executor.get_curr_state()
 state.print()
-state = executor.set_curr_state()
+state = executor.get_curr_state()
 

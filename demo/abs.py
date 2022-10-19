@@ -19,11 +19,11 @@ class PredicateAbstraction(Abstraction):
         abs_state = \
           StateAsmpt({self.cnt:self.cnt, self.pred:predicate}, [], [])
         
-        p_valid = e_is_always_valid(state.eval(predicate), state.asmpt)
+        p_valid = e_is_valid(state.eval(predicate), state.asmpt)
         if p_valid:
             abs_state.add_assumption(EqualsOrIff(predicate, TRUE()), 'pred')
             
-        p_invalid = e_is_always_invalid(state.eval(predicate), state.asmpt)
+        p_invalid = e_is_invalid(state.eval(predicate), state.asmpt)
         if p_invalid:
             abs_state.add_assumption(EqualsOrIff(predicate, FALSE()), 'pred')
        
@@ -40,11 +40,11 @@ class PredicateAbstraction(Abstraction):
     def abs_eq(self, s1: StateAsmpt, s2: StateAsmpt) -> bool:
         expr = EqualsOrIff( s1.sv[self.pred], s2.sv[self.pred] )
         assumptions = s1.asmpt + s2.asmpt
-        return e_is_always_valid(expr, assumptions)
+        return e_is_valid(expr, assumptions)
 
 
 btor_parser = BTOR2Parser()
-sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/design/counter.btor2"))
+sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/counter.btor2"))
 executor = SymbolicExecutor(sts)
 
 executor.init({})

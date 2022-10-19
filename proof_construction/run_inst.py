@@ -4,25 +4,28 @@ def main(argv):
    script = ''
    logdir = ''
    try:
-      opts, args = getopt.getopt(argv,"hs:l:",["script=","logdir="])
+      opts, args = getopt.getopt(argv,"hs:l:i:",["script=","logdir=","inst="])
    except getopt.GetoptError:
-      ('run_all_inst.py  -s <script> -l <logpath>')
+      ('run_inst.py  -s <script> -l <logpath> -i <inst_type>')
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-         print('run_all_inst.py -s <script> -l <logdir>')
+         print('run_inst.py -s <script> -l <logdir> -i <inst_type>')
          sys.exit()
-    #   elif opt in ("-i", "--inst"):
-    #      inst = arg
       elif opt in ("-s", "--script"):
          script = arg
-      elif opt in ("-l", "--logdir"):
-         logdir = arg
-#    print('input file: ', inst)
-   print('script name:   ', script)
-   print('log file:', logdir)
+      elif opt in ("-i", "--inst"):
+         inst_type = arg
+   print('Script name:   ', script)
+   print('Log file:', logdir)
+   print('Instruction type:', logdir)
+   print('\n')
+   assert(inst_type == ('all' or 'add' or 'nand' or 'nop'))
+   if inst_type == 'all':
+      inst_list = ['add', 'nand', 'set', 'nop']
+   else:
+      inst_list = [str(inst_type)]
 
-   inst_list = ['add', 'nand', 'set', 'nop']
    temp_script = 'temp_'+str(script)
    for inst in inst_list:
         ## regular expression to replace the script
@@ -37,10 +40,10 @@ def main(argv):
                 f.writelines(line_new)
         f_t.close()
         f.close()
-        print('Running script:', script)
-        os.system('python3 {s} > {l}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
+
+        os.system('python {s} > {l}_{i}_proof.txt'.format(s=temp_script, l=logdir, i=inst))
         os.remove(temp_script)
-        print('Finish!\n\n')
         
+
 if __name__ == "__main__":
    main(sys.argv[1:])
