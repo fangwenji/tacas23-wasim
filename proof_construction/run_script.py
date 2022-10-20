@@ -24,7 +24,7 @@ def main(argv):
    print('Log path:', logdir)
    print('Instruction type:', inst_type)
    print('\n')
-   assert inst_type in ['all', 'add', 'nand', 'nop', 'none']
+   assert inst_type in ['all', 'add', 'nand', 'nop', 'set', 'none']
    if inst_type == 'all':
       inst_list = ['add', 'nand', 'set', 'nop']
    else:
