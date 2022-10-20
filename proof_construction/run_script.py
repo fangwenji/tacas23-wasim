@@ -21,7 +21,7 @@ def main(argv):
       elif opt in ("-i", "--inst"):
          inst_type = arg
    print('Script name:   ', script)
-   print('Log file:', logdir)
+   print('Log path:', logdir)
    print('Instruction type:', inst_type)
    print('\n')
    assert inst_type in ['all', 'add', 'nand', 'nop', 'none']
@@ -45,10 +45,12 @@ def main(argv):
         f_t.close()
         f.close()
         print('Running script:', script)
-        os.system('python3 {s} > {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
+        if(len(inst_list) > 1):
+           print('Current instruction:', inst) 
+        os.system('python3 {s} > {l}{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
         os.remove(temp_script)
         print('Finish!\n\n')
-        print('Log is stored in path: {l}_{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
+        print('Log is stored in path: {l}{s}_{i}.txt'.format(s=script, l=logdir, i=inst))
         
 if __name__ == "__main__":
    main(sys.argv[1:])
