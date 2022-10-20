@@ -125,8 +125,9 @@ def main():
         print("counter example (inv check)\n", sort_model(cex))
 
     end_time = time.perf_counter()
-    print('Verification Time:%d(s):  ' %round((end_time-start_time),2))
     print('Verification Time:%d(ms):  ' %int( round((end_time-start_time) * 1000) ))
+    print('Verification Time:%d(s):  ' %round((end_time-start_time),2))
+    
     
         
 

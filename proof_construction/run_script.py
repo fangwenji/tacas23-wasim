@@ -11,6 +11,9 @@ def main(argv):
    for opt, arg in opts:
       if opt == '-h':
          print('run_script.py -s <script> -l <logdir> -i <inst_type>')
+         print('  -s<script>: to assign which user input script is going to be used')
+         print('  -l<logdir>: to designate the directory that stores the running log files')
+         print('  -i<inst_type>: to choose which type of instrcution will be verified.')
          sys.exit()
     #   elif opt in ("-i", "--inst"):
     #      inst = arg
@@ -46,11 +49,16 @@ def main(argv):
         f.close()
         print('Running script:', script)
         if(len(inst_list) > 1):
-           print('Current instruction:', inst) 
-        os.system('python3 {s} > {l}{s}_{i}.txt'.format(s=temp_script, l=logdir, i=inst))
+           print('Current instruction:', inst)
+        if(logdir == 'terminal'):
+           os.system('python3 {s}'.format(s=temp_script))
+        else:
+           print('Log is stored in path: {l}{s1}_{i}.log'.format(s1=script, l=logdir, i=inst))
+           os.system('python3 {s} > {l}{s1}_{i}.log'.format(s=temp_script, l=logdir, i=inst, s1=script))
         os.remove(temp_script)
         print('Finish!\n\n')
-        print('Log is stored in path: {l}{s}_{i}.txt'.format(s=script, l=logdir, i=inst))
+        
+        
         
 if __name__ == "__main__":
    main(sys.argv[1:])

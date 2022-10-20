@@ -25,7 +25,7 @@ def arg_check(formula, state_asmpt:dict):
 
 def ila_trans():
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/3_state_pipe_inst.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/3_stage_pipe_inst.btor2"))
     executor = SymbolicExecutor(sts)
     init_dict = {
         'ILA_r0' : 'x0',
@@ -70,7 +70,7 @@ def ila_trans():
 
 def main(extracted_list, sv_extracted_list):
     start_time = time.perf_counter()
-    file_name = "/home/tacas23/wasim/output/trace_3_state_pipe_inst.pkl"
+    file_name = "/home/tacas23/wasim/output/trace_3_stage_pipe_inst.pkl"
     open_file = open(file_name,"rb")
     branch_list = pickle.load(open_file)
     num_layer = 5
@@ -79,7 +79,7 @@ def main(extracted_list, sv_extracted_list):
 
 
     btor_parser = BTOR2Parser()
-    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/3_state_pipe_inst.btor2"))
+    sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/3_stage_pipe_inst.btor2"))
     executor = SymbolicExecutor(sts)
 
     init_dict = {
@@ -419,8 +419,9 @@ def main(extracted_list, sv_extracted_list):
     property_check_generic_func(inv_ila_rtl, sts_assertion, asmpt)
 
     end_time = time.perf_counter()
-    print('Verification Time:%d(s):  ' %round((end_time-start_time),2))
     print('Verification Time:%d(ms):  ' %int( round((end_time-start_time) * 1000) ))
+    print('Verification Time:%d(s):  ' %round((end_time-start_time),2))
+    
 
 
 if __name__ == '__main__':

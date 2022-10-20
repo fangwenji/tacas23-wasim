@@ -136,8 +136,9 @@ def main():
     # sat_check = substitute(sat_check, sts.v2vprime)
     # print(sat_check.serialize())
     end_time = time.perf_counter()
-    print('Verification Time:%d(s):  ' %round((end_time-start_time),5))
     print('Verification Time:%d(ms):  ' %int( round((end_time-start_time) * 1000) ))
+    print('Verification Time:%d(s):  ' %round((end_time-start_time),5))
+    
 
 
 

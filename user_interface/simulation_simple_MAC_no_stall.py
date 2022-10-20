@@ -105,9 +105,9 @@ def symtraverse_all_step():
   pickle.dump(branch_list,open_file)
   open_file.close()
 
-
-  print('program running time: %d(s):  ' %round((end_time-start_time),10))
   print('program running Time:%d(ms):  ' %int( round((end_time-start_time) * 1000) ))
+  print('program running time: %d(s):  ' %round((end_time-start_time),10))
+  
 
 if __name__ == '__main__':
   symtraverse_all_step()

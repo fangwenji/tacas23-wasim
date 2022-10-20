@@ -13,15 +13,16 @@ EXPERIMENT RUNTIME:
 There are four sub-experiments in total, demonstrated in abstract part of the artifact. The total runtime for these experiments is around 20 minutes, which is estimated on a server running Ubuntu 20.04 with a 2.9 GHz Intel Xeon(R) Platinum 8375C CPU and 128G RAM.
 
 REPRODUCIBILITY INSTRUCTIONS:
-1. Downloed the atifact data file tacas23-wasim.zip and copy it to the tacas23 virtual machine.
+1. Download the artifact data file tacas23-wasim.zip and copy it to the tacas23 virtual machine.
 2. Unzip the tacas23-wasim.zip file in new directory.
-    $ unzip -o -d /home/tacas23 tacas23-wasim.zip
+    $ unzip -o -d /home/tacas23/tacas23-wasim tacas23-wasim.zip
 3. Setup dependencies for WASIM. (After running the following commands, the source code of WASIM will be copied into /home/tacas23/wasim)
     $ cd /home/tacas23/tacas23-wasim/deps
     $ chmod 755 setup.sh
     $ ./setup.sh
     $ cd /home/tacas23/
     $ chmod -R 755 wasim
+    $ chmod 755 cvc5-linux
 4. Run the experiments.
     4.1 Demo
         Directly run the python scripts and the results could be seen in the terminal.
@@ -51,7 +52,7 @@ REPRODUCIBILITY INSTRUCTIONS:
               $ cd /home/tacas23/wasim/proof_construction
               $ python3 run_script.py -s prop_check_simple_MAC_stall.py -l ../log/log_proof/ -i 'none'
               $ python3 run_script.py -s inv_check_simple_MAC_stall.py -l ../log/log_proof/ -i 'none'
-        4.2.3 Case study3: 3_stage_pipe (with four instructions)
+        4.2.3 Case study3:3_stage_pipe (with four instructions)
               $ cd /home/tacas23/wasim/user_interface
               $ python3 run_script.py -s simulation_3_stage_pipe.py -l ../log/log_simulation/ -i 'all'
               $ cd /home/tacas23/wasim/proof_construction
