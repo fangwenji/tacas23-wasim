@@ -11,6 +11,9 @@ def main(argv):
    for opt, arg in opts:
       if opt == '-h':
          print('run_script.py -s <script> -l <logdir> -i <inst_type>')
+         print('  • -s(script): to assign which user input script is going to be used')
+         print('  • -l(log_path): to designate the directory that stores the running log files (e.g. ../log/log_simulation/ for simulation process and ../log/    log_proof for the two property check processes)')
+         print('  • -i(instruction): to choose which type of instrcution will be verified (e.g. 'none' if no instruction type in the design, 'add'/'nand'/'set'/'nop' to check single instruction for case study3, 'all' to check all four instructions for case study3)')
          sys.exit()
     #   elif opt in ("-i", "--inst"):
     #      inst = arg
