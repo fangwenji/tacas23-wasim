@@ -1,0 +1,1 @@
+python run_all_inst.py -s symtraverse_all_step2.py -l ../log/log_symsim/log_c2
