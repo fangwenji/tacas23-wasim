@@ -17,7 +17,8 @@ pip3 install z3_solver-4.8.15.0-py2.py3-none-manylinux1_x86_64.whl
 pip3 install PyBoolector-3.2.2.20221010.1-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
 
 #4. cvc5-Linux
-chmod 755 cvc5-Linux
+cp cvc5_Linux ~/
+chmod 755 ~/cvc5-Linux
 
 
 
@@ -25,8 +26,16 @@ cd ${DEPSDIR}/../
 cp -rf wasim ~/
 export WASIMROOT=~/wasim
 echo "export WASIMROOT=~/wasim" >> ~/.bashrc
+source ~/.bashrc
 cd ~/
 chmod -R 755 wasim
+cd ~/wasim
+mkdir output
+mkdir log
+cd log
+mkdir log_demo
+mkdir log_simulation
+mkdir log_proof
 
 echo
 echo "---------------------------"

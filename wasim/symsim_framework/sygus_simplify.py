@@ -167,7 +167,7 @@ def run_sygus(free_var, free_var_asmpt, asmpt_and_smtlib, Fun, Fun_type,
         f.write(line9)
 
     # 3.run sygus simplify and transform the FunNew(smtlib) to pysmt.fnode
-    run_cmd('../../deps/cvc5-Linux --lang=sygus2 {0} > {1}'.format(template_file, result_temp_file), timeout= 0.5)
+    run_cmd('~/cvc5-Linux --lang=sygus2 {0} > {1}'.format(template_file, result_temp_file), timeout= 0.5)
     linecache.clearcache()  ### remember to clear cache before reuse this linecache!!
     line_11 = linecache.getline(result_temp_file, 2).strip()
 
@@ -194,46 +194,17 @@ def child_list_simplify(child_list, state, set_of_xvar):
     child_new_list = []
     for child in child_list:
         if expr_contains_X(child, set_of_xvar):
-            #  (variables in v, variables in asmpt, asmpt, expr to handle, return type)
             (free_var, free_var_asmpt, asmpt_and_smtlib, Fun, Fun_type) = parse_state(state, child)
-            # print('Running sygus simplify!')
-            # run_cmd()
-            
             new_expr_part = run_sygus(free_var, free_var_asmpt, asmpt_and_smtlib, Fun, Fun_type, set_of_xvar)
             if(str(new_expr_part) == 'True'):
                 new_expr_part = structure_simplify(child, state, set_of_xvar)
                 # assert False
             elif(str(new_expr_part) == 'False'):
-                # print('child:',child)
                 new_expr_part = structure_simplify(child, state, set_of_xvar)
-                # print('new_expr_part',new_expr_part)
-                # input()
-                # new_expr_part = structure_simplify(child, state, set_of_xvar)
             child = new_expr_part
-            # print('simplified fun part: ',new_expr_part)
         child_new_list.append(child)
-    # print(child_new_list)
     return child_new_list
 
-# def structure_simplify_new(v, state, set_of_xvar):
-#     child_list = v.args()
-#     num_of_args = len(child_list)
-#     child_new_list = child_list_simplify(child_list, state, set_of_xvar)
-#     # num of args == 1
-#     if(num_of_args == 1):
-#         pass
-#     elif(num_of_args == 2):
-#         if(v.is_equals()):
-#             oper = EqualsOrIff
-#         elif(v.is_bv_concat()):
-#             oper = BVConcat
-        
-#         new_expr = oper(child_new_list[0], child_new_list[1])
-#     elif(num_of_args == 3):
-#         if(v.is_ite()):
-#             oper = Ite
-        
-#         new_expr = oper(child_new_list[0], child_new_list[1], child_new_list[2])
 
 
 def structure_simplify(v, state, set_of_xvar):
@@ -262,9 +233,7 @@ def structure_simplify(v, state, set_of_xvar):
     elif((v.is_bv_add()) and (len(child_list) == 2)):
         new_expr = BVAdd(child_new_list[0], child_new_list[1])
     else:
-        # print('not ite structure!')
         (free_var, free_var_asmpt, asmpt_and_smtlib, Fun, Fun_type) = parse_state(state, v)
-        # print('Running sygus simplify!')
         new_expr = run_sygus(free_var, free_var_asmpt, asmpt_and_smtlib, Fun, Fun_type, set_of_xvar)
         if((str(new_expr) == 'True') or (str(new_expr) == 'False')):
             # assert False
@@ -274,8 +243,7 @@ def structure_simplify(v, state, set_of_xvar):
             print('num of args: ',len(v.args()))
             input()
             pass
-        # print('Fun new:', new_expr.serialize())
-        # print('sygus simplify finish!')
+
     
     return new_expr
     
@@ -284,7 +252,7 @@ def sygus_simplify(state, set_of_xvar):
     for s, v in state.sv.items():
         
         if expr_contains_X(v,
-                           set_of_xvar):  # HZ : ('X' in str(v.serialize())) is not safe, what if the Verilog variable name contains X ?
+                           set_of_xvar):  
             new_expr = structure_simplify(v, state, set_of_xvar)
             new_sv_dic = {s: new_expr.simplify()}
             state.sv.update(new_sv_dic)

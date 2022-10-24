@@ -27,7 +27,7 @@ def symtraverse_all_step():
  
 
   btor_parser = BTOR2Parser()
-  sts, _ = btor_parser.parse_file(Path("/home/tacas23/wasim/design/3_stage_pipe_inst.btor2"))
+  sts, _ = btor_parser.parse_file(Path("../design/3_stage_pipe_inst.btor2"))
   executor = SymbolicExecutor(sts)
 
   # #tag0->tag0 initialize
@@ -184,7 +184,7 @@ def symtraverse_all_step():
   (flag4, start_num4, end_num4, end_time4) = extend_branch_next_phase(branch_list, executor, sts, base_sv= {'RTL_registers[0]','RTL_registers[1]','RTL_registers[2]','RTL_registers[3]'}, \
     flag='wb-finish', phase_marker={'__START__': 0, 'ppl_stage_ex': 0, 'ppl_stage_wb': 1, 'ppl_stage_finish': 0})
 
-  file_name = "/home/tacas23/wasim/output/trace_3_stage_pipe_inst.pkl"
+  file_name = "../output/trace_3_stage_pipe_inst.pkl"
   open_file = open(file_name,"wb")
   pickle.dump(branch_list,open_file)
   open_file.close()
