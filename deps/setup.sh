@@ -1,7 +1,9 @@
 #!/bin/bash
 # TODO:chmod 755 setup.sh
 
-
+#-------------------------------
+# Install all dependent packages
+#-------------------------------
 echo "Install Dependencies"
 
 DEPSDIR=$(pwd)
@@ -19,7 +21,7 @@ chmod chmod 755 cvc5-Linux
 
 
 
-cd $(DEPSDIR)/../
+cd ${DEPSDIR}/../
 cp -rf wasim ~/
 export WASIMROOT=~/wasim
 echo "export WASIMROOT=~/wasim" >> ~/.bashrc
@@ -31,6 +33,6 @@ echo "---------------------------"
 echo "  Installation Completed.  "
 echo "---------------------------"
 
-cd $(DEPSDIR)
+cd ${DEPSDIR}
 
 

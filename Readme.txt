@@ -20,11 +20,11 @@ Runtime for each sub-experiments:
 ############# REPRODUCIBILITY INSTRUCTIONS #############
 ========= Installation =========
 1. Please first download the zip archive from the link we provided. (You should have completed this step)
-2. Unzip the archive. The unzipping process will automatically create a folder named tacas23-wasim, within which there are the directory of the artifact: wasim, the directory of the dependencies: deps, the license and this readme.
-    $ unzip tacas23-wasim.zip
-3. Open a terminal and change directory into the tacas23-wasim folder. You can do this by first using the file explorer to navigate into the tacas23-wasim folder and right clicking in the blank space of the file explorer and select "Open in Terminal".
+
+2. Unzip the archive. Open a terminal and change directory into the folder which contains the zip archive. You can do this by first using the file explorer to navigate into the folder and right clicking in the blank space of the file explorer and select "Open in Terminal", after openning the terminal, run
+    $ unzip -o -d tacas23-wasim tacas23-wasim.zip
 4. Install dependencies for WASIM: in the terminal just opened in the previous step, run
-    $ cd deps
+    $ cd tacas23-wasim/deps
     $ chmod 755 setup.sh
     $ ./setup.sh
 
