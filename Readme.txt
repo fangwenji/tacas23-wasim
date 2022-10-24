@@ -30,35 +30,35 @@ Runtime for each sub-experiments:
 
 ========= Reproduce Results of Case Studies =========
 A unified script named run_script.py is used in all experiments. The usage of run_script could be inquired by the command: python3 run_script.py -h
-4.1 Demo
+1. Demo
     Directly run the python scripts, and the results could be seen in the terminal.
     $ cd $WASIMROOT/demo
     $ python3 run_script.py -s api.py -l ../log/log_demo/ -i 'none'
     $ python3 run_script.py -s abs.py -l ../log/log_demo/ -i 'none'
     $ python3 run_script.py -s fpv.py -l ../log/log_demo/ -i 'none'
     $ python3 run_script.py -s inv.py -l ../log/log_demo/ -i 'none'
-4.2 Case Studies
+2. Case Studies
     The execution processes are similar for the following three case studies, including 
         • simulation in user_interface/ to obtain the traces of abstract states stored in output/ with pickle format
         • formal property check in proof_construction/
         • invariant check  in proof_construction/
     
 
-    4.2.1 Case study1: simple_pipe_no_stall
+    2.1 Case study1: simple_pipe_no_stall
             $ cd $WASIMROOT/user_interface
             $ python3 run_script.py -s simulation_simple_MAC_no_stall.py -l ../log/log_simulation/ -i 'none'
             $ cd $WASIMROOT/proof_construction
             $ python3 run_script.py -s prop_check_simple_MAC_no_stall.py -l ../log/log_proof/ -i 'none'
             $ python3 run_script.py -s inv_check_simple_MAC_no_stall.py -l ../log/log_proof/ -i 'none'
     
-    4.2.2 Case study2: simple_pipe_stall
+    2.2 Case study2: simple_pipe_stall
             $ cd $WASIMROOT/user_interface
             $ python3 run_script.py -s simulation_simple_MAC_stall.py -l ../log/log_simulation/ -i 'none'
             $ cd $WASIMROOT/proof_construction
             $ python3 run_script.py -s prop_check_simple_MAC_stall.py -l ../log/log_proof/ -i 'none'
             $ python3 run_script.py -s inv_check_simple_MAC_stall.py -l ../log/log_proof/ -i 'none'
     
-    4.2.3 Case study3:3_stage_pipe (with four instructions)
+    2.3 Case study3:3_stage_pipe (with four instructions)
             $ cd $WASIMROOT/user_interface
             $ python3 run_script.py -s simulation_3_stage_pipe.py -l ../log/log_simulation/ -i 'all'
             $ cd $WASIMROOT/proof_construction
@@ -73,6 +73,6 @@ A unified script named run_script.py is used in all experiments. The usage of ru
             $ python3 run_script.py -s prop_check_3_stage_pipe.py -l ../log/log_proof/ -i 'add'
             $ python3 run_script.py -s inv_check_3_stage_pipe.py -l ../log/log_proof/ -i 'add'
             )
-5. Output files and log files.
+3. Output files and log files.
     • All of the output traces of states will be stored in ~/wasim/output in pickle format.
     • All running logs will be stored in ~/wasim/log, including log_demo, log_simulation and log_proof for demo, simulation and verification, respectively. And each log file will be named with the combination of the execution script and the instruction type.
