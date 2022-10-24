@@ -1,8 +1,6 @@
 *.pyc
 __pycache__/*
 .idea/*
-log/*
-output/*
 .run/*
 .vscode/*
 env.sh
