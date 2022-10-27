@@ -1,0 +1,5 @@
+&r ../design/simple_MAC_no_stall.aig
+&put
+fold
+pdr -v
+

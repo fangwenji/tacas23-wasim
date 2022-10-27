@@ -75,3 +75,13 @@ A unified script named run_script.py is used in all experiments. The usage of ru
 3. Output files and log files.
     • All of the output traces of states will be stored in ~/wasim/output in pickle format.
     • All running logs will be stored in ~/wasim/log, including log_demo, log_simulation and log_proof for demo, simulation and verification, respectively. And each log file will be named with the combination of the execution script and the instruction type.
+
+4. Reproduce Berkeley-abc experiments
+    $ cd ~/abc/script
+    For each script file in the folder, please repeat the following three commands:
+    $ ~/oss-cad-suite/bin/yosys-abc
+    Please replace the <script>.ys below with the script from the current folder (e.g. simple_MAC_no_stall_script.ys)
+    $ source <script>.ys
+    $ quit
+
+    Note that for the 4 scripts whose names start with '3_stage_pipe', the proof by Berkeley-abc will not terminate for at least 72 hours, so please terminate the process by Ctrl+C manually if you want to exit.
