@@ -17,6 +17,12 @@ import os
 import signal
  
 def run_cmd(cmd_string, timeout):
+    """Execute the command and check the timeout
+    
+    Args:
+        cmd_string: command
+        timeout: timeout of the runtime
+    """
     p = subprocess.Popen(cmd_string, stderr=subprocess.STDOUT, stdout=subprocess.PIPE, shell=True, close_fds=True,
                          preexec_fn=os.setsid)
     try:
@@ -44,6 +50,7 @@ def run_cmd(cmd_string, timeout):
 
 
 class TSSmtLibParser(SmtLibParser):
+    """Modification of the SmtLibParser"""
     def __init__(self, env=None, interactive=False):
         SmtLibParser.__init__(self, env, interactive)
 
@@ -94,7 +101,14 @@ class TSSmtLibParser(SmtLibParser):
             return self.get_ts(script)
 
 
-def parse_state(state, v):  # transform to smtlib format and get the expression that sygus template needs
+def parse_state(state, v):
+    """Transform the state to smtlib format 
+       and get the expression that sygus template needs
+    
+    Args:
+        state: the input state class 
+        v: expression in fnode needed to simplify
+    """
     # 1.parse the expression with X (pysmt.fnode --> smtlib)
     asmpt_and = And(state.asmpt)
     free_var_asmpt = get_free_variables(asmpt_and)
@@ -116,6 +130,18 @@ def parse_state(state, v):  # transform to smtlib format and get the expression 
 
 def run_sygus(free_var, free_var_asmpt, asmpt_and_smtlib, Fun, Fun_type,
               set_of_xvar):  # write sygus script --> run sygus simplify --> return new expression (FunNew) in pysmt format
+    """Formulate the SyGuS scrpt,
+       run the script for X simplification,
+       return a new expression without X in fnode format
+    
+    Args:
+        free_var: all variables used in the expression
+        free_var_asmpt: all vairbales used in the assumptions
+        asmpt_and_smtlib: the smtlib format of the assumptions (connected with AND)
+        Fun: expression in fnode needed to simplify
+        Fun_type: the bitvector type of the Fun expression
+        set_of_xvar: set of the X variables
+    """
     # 2.write the sygus script
     now = int(time.time())
     timeArray = time.localtime(now)
@@ -187,10 +213,23 @@ def run_sygus(free_var, free_var_asmpt, asmpt_and_smtlib, Fun, Fun_type,
 
 
 def expr_contains_X(expr, set_of_xvar) -> bool:
+    """Check whether the expression contains X
+    
+    Args:
+        expr: expression under check
+        set_of_xvar: set of the X variables
+    """
     vars_in_expr = get_free_variables(expr)
     return any([var in set_of_xvar for var in vars_in_expr])
 
 def child_list_simplify(child_list, state, set_of_xvar):
+    """Eliminate X in the expressions from child_list
+    
+    Args:
+        child_list: list of expression needed to simplify
+        state: the state under simplification
+        set_of_xvar: set of the X variables
+    """
     child_new_list = []
     for child in child_list:
         if expr_contains_X(child, set_of_xvar):
@@ -208,6 +247,13 @@ def child_list_simplify(child_list, state, set_of_xvar):
 
 
 def structure_simplify(v, state, set_of_xvar):
+    """Recognize the structure of the expression and simplify
+    
+    Args:
+        v: expression under simplification
+        state: the state under simplification
+        set_of_xvar: set of the X variables
+    """
     child_list = v.args()
     child_new_list = child_list_simplify(child_list, state, set_of_xvar)
     if ((v.is_ite()) and (len(child_list) == 3)):       
@@ -249,6 +295,12 @@ def structure_simplify(v, state, set_of_xvar):
     
     
 def sygus_simplify(state, set_of_xvar):
+    """Use SyGuS solver (cvc5) to eliminate X variables in expressions of the state
+    
+    Args:
+        state: the state under simplification
+        set_of_xvar: set of the X variables
+    """
     for s, v in state.sv.items():
         
         if expr_contains_X(v,

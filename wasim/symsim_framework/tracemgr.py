@@ -6,6 +6,16 @@ from sts import StateAsmpt
 solver_name = 'z3'
 
 class TraceManager(object):
+  """Class for simulation trace management
+
+  Attributes:
+      invar: input variables
+      svar: state variables
+      Xvar: X variables
+      base_var: base variables selected to represent the state
+      abs_state: abstract state
+      abs_state_one_step: abstract state
+  """
   def __init__(self, ts):
     self.ts = ts # the transition system
 
@@ -68,17 +78,6 @@ class TraceManager(object):
     self.abs_state.append(self.abstract(state))
     return True
 
-  
-  # def compare_record_state_w_asmpt(self, prev_state:StateAsmpt,curr_state:StateAsmpt, Xvar):
-  #   if self.abs_eq(s_abs=self.abstract(prev_state), s2=curr_state):
-  #     # print('2')
-  #     # del self.prev_state_list[-1]
-  #     # del self.curr_state_list[-1]
-  #     return False
-  #   else:
-  #     # print('before:',len(self.abs_state))
-  #     self.abs_state.append(self.abstract(curr_state))
-  #     return True
 
   def determine_new_state(self,state_list,parent_id_list,state):
     pass
@@ -112,35 +111,7 @@ class TraceManager(object):
     # self._debug_abs_check(expr, assumptions)
     valid = e_is_always_valid(expr, assumptions)  # expr:  And( v1==v1' , v2==v2' , ... )
     return valid
-    
-  
-  # def state_eq(self, state1: StateAsmpt,state2: StateAsmpt) -> bool:
-  #   for s1, v1 in state1.sv.items():
-  #       if not (s1 in state1.sv):
-  #         return False
-  #       v2 = state2.sv[s1]
-  #       if(v1 != v2):
-  #         return False
-  #   if (len(state1.asmpt) != len(state2.asmpt)):
-  #     return False
-  #   else:
-  #     for i in range(len(state1.asmpt)):
-  #       if(state1.asmpt[i] != state2.asmpt[i]):
-  #         return False
-  #       else:
-  #         return True
 
-  # def add_state(self, state, flag_list):
-  #   if(flag_list == 'prv'):
-  #     self.prv_state.append(state)
-  #   elif(flag_list == 'cur'):
-  #     self.cur_state.append(state)
-
-  # def del_state(self,flag_list):
-  #   if(flag_list == 'prv'):
-  #     self.prv_state.pop()
-  #   elif(flag_list == 'cur'):
-  #     self.cur_state.pop()
 
   def _debug_concrete_check(self, Xs, E, As):
     print ('='*20)
@@ -179,13 +150,6 @@ class TraceManager(object):
   def check_reachable(self, s_in: StateAsmpt) -> bool:
     asmpt = s_in.asmpt
     current_asmpt_sat = is_sat(And(asmpt), solver_name=solver_name)
-    # if (current_asmpt_sat == False):
-    #   print(asmpt)
-    #   for a in asmpt:
-    #     print(a.serialize())
-    #     check_sat = is_sat(a)
-    #     if(check_sat == False):
-    #       print('check false!!',a.serialize())
     return current_asmpt_sat
 
   def check_concrete_enough(self, s_in: StateAsmpt, Xs):
@@ -207,12 +171,6 @@ class TraceManager(object):
         ind = e_is_independent_of_v(e=v, v=X, assumptions=s_in.asmpt)
         if not ind:
           return False
-        # print('e:',v.serialize())
-        # print('x:',X)
-        # if v.bv_width() == 1:
-        #   print (is_sat(And([EqualsOrIff(v, BV(0,1) )]+s_in.asmpt)))
-        #   print (is_sat(And([EqualsOrIff(v, BV(1,1) )]+s_in.asmpt)))
-
         # otherwise it is independent of X
         # we can replace (eliminate) it actually
     return True

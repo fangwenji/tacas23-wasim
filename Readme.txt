@@ -1,10 +1,10 @@
 ############# ARTIFACT LINK #############
-github?
+zenodo link: 
 
 ############# ADDITIONAL REQUIREMENTS #############
 All the software dependencies are open-source and already downloaded in tacas23-wasim.zip, which could be installed automatically by the script tacas23-wasim/deps/setup.sh. 
 The recommended minimum hardware requirements to run the artifact are listed as follows:
-• CPU: Intel (64-bit and compatible with x86 ISA)
+• CPU: Intel (64-bit x86 ISA, frequncy >= 2.40GHz) 
 • Operating System: Ubuntu
 • RAM: 16GB
 • Storage: 128GB
@@ -16,6 +16,7 @@ Runtime for each sub-experiments:
 • Case study1: several seconds
 • Case study2: 15 minutes
 • Case study3: 10 minutes
+• Berkeley-abc experiments: please terminate the process manually
 
 ############# REPRODUCIBILITY INSTRUCTIONS #############
 ========= Installation =========
@@ -82,6 +83,7 @@ A unified script named run_script.py is used in all experiments. The usage of ru
     $ ~/oss-cad-suite/bin/yosys-abc
     Please replace the <script>.ys below with the script from the current folder (e.g. simple_MAC_no_stall_script.ys)
     $ source <script>.ys
+    Note: for the 4 scripts whose names start with '3_stage_pipe', the proof by Berkeley-abc will not terminate for at least 72 hours, so please terminate the process by Ctrl+C manually if you want to exit.
     $ quit
 
-    Note that for the 4 scripts whose names start with '3_stage_pipe', the proof by Berkeley-abc will not terminate for at least 72 hours, so please terminate the process by Ctrl+C manually if you want to exit.
+    

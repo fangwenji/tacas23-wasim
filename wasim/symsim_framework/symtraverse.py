@@ -14,6 +14,14 @@ import multiprocessing
 from functools import partial
 
 def simplify_process(state, xvar):
+  """Perform two steps of simplification processes:
+      1. state simplify
+      2. sygus simplify
+    
+    Args:
+        state: the state under simplification
+        set_of_xvar: set of the X variables
+    """
   state_simplify_xvar(state, xvar)
   sygus_simplify(state, xvar)
 
@@ -24,6 +32,14 @@ class SearchTreeNode(object):
     self.parent_node = parent_node
 
 class TraverseBranchingNode(object):
+  """Class of branch and nodes for symbolic traverse
+
+  Attributes:
+      branch_on_inputvar: whether the input varriables are assigned 
+      v_name: name of the variable
+      v_width: bitwidth of the variable
+      value: value to record search
+  """
   def __init__(self, input_v :Tuple[str,int] = None, signal_v :Tuple[str,int] = None):
     assert (input_v is None or signal_v is None)
     assert (not (input_v is None and signal_v is None))
@@ -48,9 +64,18 @@ class TraverseBranchingNode(object):
     return self.v_name + '==' + str(self.value)
 
 class PerStateStack(object):
+  """Class of state stack for symbolic traverse search
+
+  Attributes:
+      stack: list of the TraverseBranchingNode class
+      ptr: pointer to the stack
+      branching_point: branch point for stack search
+      no_next_choice: there is no other choice of the current stack
+      simulator: symbolic simulator
+  """
   def __init__(self, branching_point: Sequence[TraverseBranchingNode], simulator: SymbolicExecutor):
     self.stack: List[TraverseBranchingNode] = []
-    self.ptr = 0 #what is ptr?
+    self.ptr = 0 
     self.branching_point = branching_point
     self.no_next_choice = False
     self.simulator = simulator
@@ -112,12 +137,22 @@ class PerStateStack(object):
 
 
 class SymbolicTraverse(object):
+  """Class to performa the symbolic traverse
+
+  Attributes:
+      sts: state transition system
+      executor: symbolic simulator
+      tracemgr: trace manager
+      base_sv: the base variables selected to represent the new state
+      new_state_list: list of a set of child states simulated from a parent state
+      list_of_state_list: list of the state list from all parent states
+  """
   def __init__(self, sts:TransitionSystem, executor:SymbolicExecutor, base_variable):
     self.sts = sts
     self.executor = executor
     self.tracemgr = TraceManager(sts)
     self.base_sv = base_variable
-    self.s_concrete = {}
+    # self.s_concrete = {}
     self.new_state_list = []
     self.list_of_state_list = []
     # self.parent_id_list = []
@@ -125,6 +160,7 @@ class SymbolicTraverse(object):
     self.tracemgr.record_base_var(base_variable)
   
   def traverse_one_step(self, assumptions, branching_point: Sequence[TraverseBranchingNode], s_init = []):
+    """Perform symbolic traverse for one clock cycle (without stall) and collect new states"""
     # the current state should be reachable /\ concrete enough /\ a new state
     state = self.executor.get_curr_state(assumptions)
     state_init = copy.copy(state)
@@ -208,6 +244,7 @@ class SymbolicTraverse(object):
 
 
   def traverse_all_states(self, assumptions, branching_fun, abs_fun, ref_fun):
+    """Perform symbolic traverse with pluggable abstraction refinment fuction interface"""
     # ADD one layer of abstraction!
     # TODO: let's complete this and the example in abs_ref.py
     state = self.executor.get_curr_state(assumptions)
@@ -263,7 +300,7 @@ class SymbolicTraverse(object):
 
 
   def traverse(self, assumptions, branching_point: Sequence[TraverseBranchingNode], s_init = []):
-
+    """Perform symbolic traverse for stall situation and collect new states"""
     # the current state should be reachable /\ concrete enough /\ a new state
     state = self.executor.get_curr_state(assumptions)
     state_init = copy.copy((self.tracemgr.abstract(state)))

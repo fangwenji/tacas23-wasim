@@ -7,6 +7,7 @@ from typing import Set
 solver_name = 'btor'
 
 def is_reducible_bool(expr:FNode, assumptions): # -> 0: always 0 /1/ None
+  """Determine whether this expression (with X) could be reduced to boolean value"""
   # print('start reduce!')
   if not is_sat(And([EqualsOrIff(expr, TRUE())] + assumptions), solver_name=solver_name):
     return 0
@@ -16,6 +17,7 @@ def is_reducible_bool(expr:FNode, assumptions): # -> 0: always 0 /1/ None
   return None
 
 def is_reducible_bv_width1(expr:FNode, assumptions): # -> 0: always 0 /1/ None
+"""Determine whether this expression (with X) could be reduced to bitvector value"""
   if not is_sat(And([EqualsOrIff(expr, BV(1,1))] + assumptions), solver_name=solver_name):
     return 0
   if not is_sat(And([EqualsOrIff(expr, BV(0,1))] + assumptions), solver_name=solver_name):
@@ -23,7 +25,7 @@ def is_reducible_bv_width1(expr:FNode, assumptions): # -> 0: always 0 /1/ None
   return None
 
 def expr_simplify_ite(expr:FNode, assumptions, set_of_xvar:Set[FNode]):
-  """for all ite(c, x , y) , check if its condition is fixed under assumptions"""
+  """For all ite(c, x , y) , check if its condition is fixed under assumptions"""
   # print('running state simplify!')
   queue = [expr]
   T = TRUE()
@@ -51,7 +53,7 @@ def expr_simplify_ite(expr:FNode, assumptions, set_of_xvar:Set[FNode]):
   return expr.substitute(subst_map).simplify()
 
 def expr_simplify_ite_new(expr:FNode, assumptions, set_of_xvar:Set[FNode]):
-  """for all ite(c, x , y) , check if its condition is fixed under assumptions"""
+  """For all ite(c, x , y) , check if its condition is fixed under assumptions"""
   # print('running state simplify!')
   cond_list = []
   queue = [expr]
@@ -89,7 +91,7 @@ def expr_simplify_ite_new(expr:FNode, assumptions, set_of_xvar:Set[FNode]):
   return expr.substitute(subst_map).simplify()
 
 def expr_simplify_bv_width1(expr:FNode, assumptions, set_of_xvar:Set[FNode]):
-  """for bitvector variable `expr` with width 1, check if its value is fixed to 1_1/0_1 under the assumptions,
+  """For bitvector variable `expr` with width 1, check if its value is fixed to 1_1/0_1 under the assumptions,
   we only check the case when `expr` is an X variable.
   """
   subst_map = {}
@@ -106,6 +108,7 @@ def expr_simplify_bv_width1(expr:FNode, assumptions, set_of_xvar:Set[FNode]):
   return expr.substitute(subst_map).simplify()
 
 def get_xvar_sub(assumptions, set_of_xvar:Set[FNode], free_var):
+  """Get the substitution dictionary for xvars"""
   xvar_sub = {}
   bv1_list =[]
   for xvar in set_of_xvar:
@@ -125,6 +128,7 @@ def get_xvar_sub(assumptions, set_of_xvar:Set[FNode], free_var):
   return xvar_sub
 
 def usr_info_sub(usr_str:string, usr_bv:BV, set_of_xvar:Set[FNode], free_var):
+  """Get the user input substitution dictionary for xvars"""
   usr_sub = {}
   for xvar in set_of_xvar:
     if((usr_str in str(xvar.serialize())) and (xvar.bv_width() == 1) and (xvar in free_var)):
@@ -134,16 +138,17 @@ def usr_info_sub(usr_str:string, usr_bv:BV, set_of_xvar:Set[FNode], free_var):
 
 
 def state_simplify_ite(s:StateAsmpt, set_of_xvar:Set[FNode]):
+  """Eliminate the Xvar in ite structure"""
   for var, expr in s.sv.items():
     s.sv[var] = expr_simplify_ite(expr, s.asmpt, set_of_xvar)
 
 def state_simplify_bv_width1(s:StateAsmpt, set_of_xvar:Set[FNode]):
+  """Eliminate the Xvar in bitvector with 1 bitwidth"""
   for var, expr in s.sv.items():
     s.sv[var] = expr_simplify_bv_width1(expr, s.asmpt, set_of_xvar)
 
 def state_simplify_xvar(s:StateAsmpt, set_of_xvar:Set[FNode]):
-  # print(set_of_xvar)
-  # input()
+  """Eliminate the Xvar in ite structure"""
   eq_list = []
   for var, expr in s.sv.items():
     eq = EqualsOrIff(var, expr)
