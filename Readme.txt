@@ -81,7 +81,7 @@ A unified script named run_script.py is used in all experiments. The usage of ru
     $ cd ~/abc/script
     For each script file in the folder, please repeat the following three commands:
     $ ~/oss-cad-suite/bin/yosys-abc
-    Please replace the <script>.ys below with the script from the current folder (e.g. simple_MAC_no_stall_script.ys)
+    Please replace the <script>.ys in the next command with the script from the current folder (e.g. simple_MAC_no_stall_script.ys), you could hit the 'Tab' key to autocomplete the script name.
     $ source <script>.ys
     Note: for the 4 scripts whose names start with '3_stage_pipe', the proof by Berkeley-abc will not terminate for at least 72 hours, so please terminate the process by Ctrl+C manually if you want to exit.
     $ quit
