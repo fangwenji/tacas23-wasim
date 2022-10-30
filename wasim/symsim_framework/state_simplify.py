@@ -17,7 +17,7 @@ def is_reducible_bool(expr:FNode, assumptions): # -> 0: always 0 /1/ None
   return None
 
 def is_reducible_bv_width1(expr:FNode, assumptions): # -> 0: always 0 /1/ None
-"""Determine whether this expression (with X) could be reduced to bitvector value"""
+  """Determine whether this expression (with X) could be reduced to bitvector value"""
   if not is_sat(And([EqualsOrIff(expr, BV(1,1))] + assumptions), solver_name=solver_name):
     return 0
   if not is_sat(And([EqualsOrIff(expr, BV(0,1))] + assumptions), solver_name=solver_name):
