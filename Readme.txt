@@ -78,6 +78,9 @@ A unified script named run_script.py is used in all experiments. The usage of ru
     • All running logs will be stored in ~/wasim/log, including log_demo, log_simulation and log_proof for demo, simulation and verification, respectively. And each log file will be named with the combination of the execution script and the instruction type.
 
 4. Reproduce Berkeley-abc experiments
+
+Please note here, Berkeley-abc is not our tool. We include experiments using Berkeley-abc in this artifact just as a comparison to our tool. This is to show our tool is advantageous on certain problems that are typically hard for a hardware model checker.
+
     $ cd ~/abc/script
     For each script file in the folder, please repeat the following three commands:
     $ ~/oss-cad-suite/bin/yosys-abc
