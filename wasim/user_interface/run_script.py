@@ -1,6 +1,7 @@
-import sys, getopt, re, os
+import sys, getopt, re, os, time
 
 def main(argv):
+   
    script = ''
    logdir = ''
    try:
@@ -50,9 +51,52 @@ def main(argv):
         print('Running script:', script)
         if(len(inst_list) > 1):
            print('Current instruction:', inst)
-        os.system('python3 {s} | tee {l}{s_n}_{i}.log'.format(s=temp_script, l=logdir, s_n=script[:-3], i=inst))
+        start_time = time.perf_counter()
+      #   os.system('python3 {s} | tee {l}{s_n}_{i}.log'.format(s=temp_script, l=logdir, s_n=script[:-3], i=inst))
+        end_time = time.perf_counter()
         os.remove(temp_script)
         print('Finish!\n\n')
+
+        ## write statistcs 
+        #1. wite name:
+        if(inst_type == 'none'):
+             design_name = script[11:-3]
+        else:
+             design_name = script[11:-3]+'_'+inst
+        ex_res = "../experimental_results_{}.log".format(design_name)
+        with open(ex_res, "a") as f:
+            #1.1 design name
+            line1 = "Design: {0}\n".format(design_name)
+            f.write(line1)
+            #1.2 design statistics
+            g = os.walk(r"../../abc/design")
+            for path, dir_list, file_list in g:
+                   for file_name in file_list:
+                         if(design_name in file_name):
+                           design_dir = os.path.join(path, file_name)
+            design_txt = design_dir[:-4]+'.txt'
+            os.system("cp {0} {1}".format(design_dir, design_txt))
+            with open(design_txt, "r", encoding='latin1') as d:
+               d_lines = d.readlines()
+               aig_str = d_lines[0]
+               d.close()
+            os.remove(design_txt)
+            statis = re.search(r'aig (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+)', aig_str)
+            state_bit = statis.group(3)
+            logic_gate = statis.group(5)
+            
+            line2 = "   #. state bit: {}\n".format(state_bit)
+            f.write(line2)
+            line3 = "   #. logic gate: {}\n".format(logic_gate)
+            f.write(line3)
+            runtime = end_time-start_time
+            line4 = "   Simulation time: {:.3f}(s)\n".format(runtime)
+            f.write(line4)
+            f.close()
+            
+
+            
+
         
         
         

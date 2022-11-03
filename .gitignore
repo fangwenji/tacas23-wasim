@@ -5,3 +5,5 @@ __pycache__/*
 .vscode/*
 env.sh
 oss-cad-suite-linux-x64-20221027.tgz
+log
+output
