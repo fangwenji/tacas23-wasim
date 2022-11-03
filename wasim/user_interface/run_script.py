@@ -52,7 +52,7 @@ def main(argv):
         if(len(inst_list) > 1):
            print('Current instruction:', inst)
         start_time = time.perf_counter()
-      #   os.system('python3 {s} | tee {l}{s_n}_{i}.log'.format(s=temp_script, l=logdir, s_n=script[:-3], i=inst))
+        os.system('python3 {s} | tee {l}{s_n}_{i}.log'.format(s=temp_script, l=logdir, s_n=script[:-3], i=inst))
         end_time = time.perf_counter()
         os.remove(temp_script)
         print('Finish!\n\n')
