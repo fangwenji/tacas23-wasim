@@ -91,5 +91,3 @@ After running the commonds of part 2 (case studies), the results Table 1 will be
     $ ~/oss-cad-suite/bin/yosys-abc
     $ source abc-script.ys
     Note: all the experiments are integrated in the one script 'abc-script.ys', the Berkeley-abc execution will not terminate for at least 72 hours, so please terminate the process by Ctrl+C manually if you want to exit.
-
-    
