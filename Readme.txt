@@ -69,9 +69,10 @@ After running the commonds of part 2 (case studies), the results Table 1 will be
             $ python3 run_script.py -s inv_check_3_stage_pipe.py -l ../log/log_proof/ -i 'all' -v inv
     2.4 Experimental results statistics
             $ cd ~/wasim
-            $ python3 statistc.py
+            $ python3 statistic.py
         After this step, all the experimental results will be written into the ~/wasim/statistics.log, corresponding to the Table 1 in the paper.
-    
+        You can view the statistic file by the command:
+            $ cat ~/wasim/statistics.log
 3. Output files and log files.
     • All of the output traces of states will be stored in ~/wasim/output in pickle format.
     • All running logs will be stored in ~/wasim/log, including log_demo, log_simulation and log_proof for demo, simulation and verification, respectively. And each log file will be named with the combination of the execution script and the instruction type.
