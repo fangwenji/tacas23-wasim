@@ -32,7 +32,7 @@ Note:
 
 ========= Reproduce Results of Case Studies =========
 A unified script named run_script.py is used in all experiments. The usage of run_script could be inquired by the command: python3 run_script.py -h
-After running the commonds of part 2 (case studies), the results Table 1 will be fully reproduces, which might be slightly different due to distinct experimental environments.
+After running the commonds of part 2 (case studies), the results Table 1 will be fully reproduces, which might be slightly different due to changes of experimental environments. The design circuit statistics of '3_stage_pipe' are different from that shown in paper because of modifications to the properties of distinct instruction. (TBD)
 1. Demo
     Directly run the python scripts, and the results could be seen in the terminal.
     These will reproduce all the screenshots in Appendix. 
@@ -73,6 +73,7 @@ After running the commonds of part 2 (case studies), the results Table 1 will be
         After this step, all the experimental results will be written into the ~/wasim/statistics.log, corresponding to the Table 1 in the paper.
         You can view the statistic file by the command:
             $ cat ~/wasim/statistics.log
+            
 3. Output files and log files.
     • All of the output traces of states will be stored in ~/wasim/output in pickle format.
     • All running logs will be stored in ~/wasim/log, including log_demo, log_simulation and log_proof for demo, simulation and verification, respectively. And each log file will be named with the combination of the execution script and the instruction type.
