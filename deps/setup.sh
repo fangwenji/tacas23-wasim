@@ -20,17 +20,14 @@ pip3 install PyBoolector-3.2.2.20221010.1-cp310-cp310-manylinux_2_12_x86_64.many
 cp cvc5-Linux ~/
 chmod 755 ~/cvc5-Linux
 
-#5. yosys
-cp oss-cad-suite-linux-x64-20221027.tgz ~/
-cd ~/
-tar -zxvf oss-cad-suite-linux-x64-20221027.tgz
-
-
-
 
 cd ${DEPSDIR}/../
 cp -rf wasim ~/
 cp -rf abc ~/
+
+#5. abc
+unzip -o -d ~/abc/script/ abc.zip
+
 cd ~/
 chmod -R 755 wasim
 cd ~/wasim
