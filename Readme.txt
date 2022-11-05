@@ -1,5 +1,5 @@
 ############# ARTIFACT LINK #############
-Please download the zip archive through the Zenodo link.
+Please download the zip archive through the Zenodo link: https://doi.org/10.5281/zenodo.7247147
 
 ############# ADDITIONAL REQUIREMENTS #############
 All the software dependencies are open-source and already downloaded in tacas23-wasim.zip, which could be installed automatically by the script tacas23-wasim/deps/setup.sh. 
