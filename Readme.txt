@@ -47,6 +47,8 @@ A unified script named run_script.py is used in all experiments. The usage of ru
         • simulation in user_interface/ to obtain the traces of abstract states stored in output/ with pickle format
         • formal property check in proof_construction/
         • invariant check  in proof_construction/
+
+    As the symbolic simulation in 2.2 and 2.3 below may take a while (> 10mins) in the virtual machine, please be patient.
     
     2.1 Case study1: simple_pipe_no_stall
             $ cd ~/wasim/user_interface
@@ -96,7 +98,7 @@ A unified script named run_script.py is used in all experiments. The usage of ru
     $ cd ~/abc/script
     $ ./abc -F abc-script.ys
 
-    In the experiments, Berkeley-abc will not terminate for at least 72 hours, so please terminate the process by Ctrl+C manually after you see the output of the terminal gets stuck for a few minutes without any progress.
+    In the experiments, Berkeley-abc will not terminate for at least 72 hours, so please terminate the process by Ctrl+C manually after you see the output of the terminal gets stuck for a long time without any progress.
 
     These experiments correpond to the "IC3/PDR" column in Table 1 of the paper.
 

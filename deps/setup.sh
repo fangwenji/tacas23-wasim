@@ -26,7 +26,8 @@ cp -rf wasim ~/
 cp -rf abc ~/
 
 #5. abc
-unzip -o -d ~/abc/script/ abc.zip
+unzip -o -d ~/abc/script/ deps/abc.zip
+chmod +x ~/abc/script/abc
 
 cd ~/
 chmod -R 755 wasim
